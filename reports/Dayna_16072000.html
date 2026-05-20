@@ -470,7 +470,7 @@ footer.outro {
   // Published copies on GitHub Pages keep the button hidden.
   (function() {
     var h = window.location.hostname;
-    if (h === "localhost" || h === "127.0.0.1" || h === "") {
+    var isPublic = h.endsWith("github.io") || h === "hotslavicwitch.com" || h === "www.hotslavicwitch.com"; if (!isPublic) {
       document.querySelector(".home-btn").style.display = "inline-block";
     }
   })();
