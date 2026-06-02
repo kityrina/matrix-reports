@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Katya — Year 2026–2027 Forecast</title>
+<style>
+:root {
+  --bg: #0B0710;
+  --fg: #F5F1F0;
+  --muted: #9C8FA6;
+  --gold: #E8C77E;
+  --pink: #FF4D7E;
+  --rule: #2a1f33;
+  --paid: rgba(232,199,126,0.18);
+}
+* { box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  margin: 0; padding: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 880px; margin: 0 auto; padding: 56px 28px 96px; }
+
+header.cover { text-align: center; padding: 28px 0 8px; border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+header.cover .brand { letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); font-size: 11px; margin-bottom: 18px; }
+header.cover h1 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 44px; margin: 0 0 6px; letter-spacing: 0.02em; }
+header.cover .subtitle { color: var(--muted); font-style: italic; font-size: 16px; }
+
+.chart-wrap {
+  background: linear-gradient(180deg,#14091f 0%,#0B0710 100%);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 28px 18px 12px;
+  margin: 32px 0 28px;
+}
+.chart-meta {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  margin-top: 18px;
+  font-size: 13px;
+}
+.chart-meta .cell { background: rgba(255,255,255,0.025); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; }
+.chart-meta .label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; margin-bottom: 4px; }
+.chart-meta .val { color: var(--fg); font-size: 14px; }
+.chart-meta .val .arc { color: var(--gold); }
+
+.report-intro {
+  font-size: 16px; line-height: 1.7;
+  background: rgba(255,77,126,0.05);
+  border-left: 2px solid var(--pink);
+  padding: 18px 22px; margin: 28px 0 8px;
+  font-style: italic;
+}
+
+section.aspect { padding: 36px 0; border-bottom: 1px solid var(--rule); }
+section.aspect:last-child { border-bottom: none; }
+section.aspect .eyebrow { color: var(--gold); letter-spacing: 0.28em; text-transform: uppercase; font-size: 11px; margin-bottom: 8px; }
+section.aspect h2 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 30px; margin: 0 0 6px; letter-spacing: 0.01em; }
+section.aspect .numbers { color: var(--muted); font-size: 12px; margin-bottom: 22px; font-style: italic; }
+section.aspect .numbers .n { color: var(--gold); font-style: normal; }
+section.aspect .body { font-size: 16.5px; line-height: 1.78; color: #EDE6E2; }
+section.aspect .body p { margin: 0 0 1.05em; }
+
+.sub { margin: 24px 0 18px; }
+.sub .sublabel {
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.indicators { padding-left: 20px; margin: 8px 0 16px; }
+.indicators li { margin-bottom: 4px; }
+.paid-box {
+  background: var(--paid);
+  border: 1px dashed var(--gold);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 14px;
+}
+.paid-box strong { color: var(--gold); font-style: normal; }
+
+.pyramid { margin: 16px 0 24px; display: flex; flex-direction: column; gap: 14px; }
+.pyramid .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; align-items: center; }
+.pyramid .row.alone { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+.pyramid .cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+}
+.pyramid .cell .pl { color: var(--muted); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+.pyramid .cell .pn { color: var(--gold); font-size: 16px; font-weight: 600; }
+.pyramid .cell .pa { color: var(--fg); font-size: 12px; font-style: italic; margin-top: 2px; }
+.pyramid .cell.sum { background: rgba(255,77,126,0.08); border-color: var(--pink); }
+
+.program-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 14px 0;
+}
+.program-card h3 { margin: 0 0 4px; font-family: "Didot",Georgia,serif; font-size: 20px; font-weight: 400; color: var(--gold); }
+.program-card .triple { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
+.program-card .strengths { font-size: 15px; line-height: 1.6; margin-bottom: 10px; }
+
+footer.outro {
+  margin-top: 56px; padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  text-align: center; color: var(--muted);
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+
+/* Floating download-PDF button (hidden when printing). */
+.pdf-btn {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--pink); color: #0B0710;
+  border: none; border-radius: 999px;
+  padding: 14px 22px;
+  font-family: Georgia, serif; font-size: 14px; font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 100;
+  transition: transform 0.15s, filter 0.15s;
+}
+.pdf-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.pdf-btn::before { content: "↓ "; margin-right: 4px; }
+
+/* Floating "Home" button — visible only when served from localhost, never
+   on a published copy and never in print. JS toggles display at load. */
+.home-btn {
+  position: fixed;
+  top: 24px; left: 24px;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: Georgia, serif; font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 100;
+  display: none;                /* hidden by default */
+  transition: all 0.15s;
+}
+.home-btn:hover { background: rgba(232,199,126,0.1); transform: translateY(-1px); }
+.home-btn::before { content: "← "; margin-right: 2px; opacity: 0.7; }
+
+/* ============================================================ */
+/* PRINT / PDF — light magazine-style theme.                    */
+/* Triggered by browser Print dialog (Ctrl+P / Cmd+P).          */
+/* ============================================================ */
+
+@page {
+  size: A4;
+  margin: 24mm 22mm 26mm 22mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: Georgia, serif;
+    font-size: 9pt;
+    color: #8a7a5b;
+  }
+  @top-right {
+    content: string(report-title);
+    font-family: Georgia, serif;
+    font-size: 8pt;
+    color: #b5a682;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+@page :first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+@media print {
+  :root {
+    --bg: #FBF7F2;
+    --fg: #1a1320;
+    --muted: #7a6e5e;
+    --gold: #9a7e3a;
+    --pink: #b53e64;
+    --rule: #d9cdb8;
+  }
+  html, body { background: #FBF7F2 !important; color: #1a1320 !important; }
+  body { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  /* Hide on-screen-only controls */
+  .pdf-btn { display: none !important; }
+  .home-btn { display: none !important; }
+
+  /* String for header — set from cover h1 */
+  header.cover h1 { string-set: report-title content(); }
+
+  .wrap { max-width: 100%; padding: 0; margin: 0; }
+
+  /* --- COVER PAGE (full-bleed) --- */
+  header.cover {
+    page: cover;
+    height: 297mm;
+    margin: 0;
+    padding: 40mm 20mm 30mm;
+    border: none;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 38%, rgba(232,199,126,0.18), transparent 55%),
+      linear-gradient(180deg, #FBF7F2, #F0E7D6 70%, #E8DDC4);
+    box-sizing: border-box;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+  }
+  header.cover .brand {
+    color: #9a7e3a !important;
+    font-size: 9pt; letter-spacing: 0.45em;
+    margin-bottom: 24mm;
+  }
+  header.cover h1 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 56pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 8mm; letter-spacing: 0.01em;
+  }
+  header.cover .subtitle {
+    color: #5a4e3d !important; font-style: italic;
+    font-size: 13pt; margin-bottom: 18mm;
+  }
+
+  /* Decorative cover ornament */
+  header.cover::after {
+    content: "✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 18pt;
+    margin-top: auto;
+    margin-bottom: 8mm;
+    opacity: 0.7;
+  }
+
+  /* --- MATRIX CHART --- on its own page, light theme --- */
+  .chart-wrap {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin: 0 0 10mm;
+    page-break-before: avoid;
+    page-break-after: always;
+    break-after: page;
+  }
+  .chart-wrap svg { max-width: 150mm !important; margin: 0 auto !important; display: block !important; }
+
+  /* Repaint SVG fills for print readability */
+  .chart-wrap svg circle[fill="#0B0710"] { fill: #FBF7F2 !important; }
+  .chart-wrap svg text[fill="#F5F1F0"] { fill: #1a1320 !important; }
+  .chart-wrap svg text[fill="#E8C77E"] { fill: #9a7e3a !important; }
+  .chart-wrap svg polygon[stroke="#E8C77E"] { stroke: #9a7e3a !important; }
+  .chart-wrap svg line[stroke="#9C8FA6"] { stroke: #7a6e5e !important; }
+  .chart-wrap svg circle[fill="url(#centerGlow)"] { fill: rgba(181,62,100,0.10) !important; }
+
+  /* Chart meta — softer table for print */
+  .chart-meta {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6mm !important; margin-top: 8mm !important;
+    page-break-inside: avoid;
+  }
+  .chart-meta .cell {
+    background: transparent !important;
+    border: 1px solid #d9cdb8 !important;
+    color: #2a1f33 !important;
+    padding: 6mm 5mm !important;
+  }
+  .chart-meta .label { color: #7a6e5e !important; }
+  .chart-meta .val .arc { color: #9a7e3a !important; }
+
+  /* --- INTRO --- */
+  .report-intro {
+    background: transparent !important;
+    border: none !important;
+    border-top: 1px solid #d9cdb8 !important;
+    border-bottom: 1px solid #d9cdb8 !important;
+    margin: 12mm 0 !important;
+    padding: 8mm 6mm !important;
+    color: #3a2e23 !important;
+    font-style: italic;
+    text-align: center;
+    font-size: 12pt;
+    page-break-inside: avoid;
+  }
+
+  /* --- ASPECT SECTIONS --- */
+  section.aspect {
+    page-break-before: always;
+    break-before: page;
+    border-bottom: none !important;
+    padding: 0 4mm 6mm !important;     /* extra inner breathing room */
+  }
+  section.aspect:first-of-type { page-break-before: auto; break-before: auto; }
+  section.aspect .eyebrow {
+    color: #9a7e3a !important; font-size: 8pt; letter-spacing: 0.34em;
+    margin-bottom: 4mm;
+  }
+  section.aspect h2 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 32pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 3mm;
+  }
+  section.aspect h2::after {
+    content: "";
+    display: block;
+    width: 30mm;
+    height: 1px;
+    background: #9a7e3a;
+    margin: 4mm 0;
+    opacity: 0.6;
+  }
+  section.aspect .numbers {
+    color: #7a6e5e !important; font-size: 9pt;
+    margin-bottom: 6mm;
+    font-style: italic;
+  }
+  section.aspect .numbers .n { color: #9a7e3a !important; }
+  section.aspect .body {
+    font-size: 11pt; line-height: 1.6;
+    color: #1a1320 !important;
+  }
+  section.aspect .body p { margin: 0 0 3mm; orphans: 3; widows: 3; }
+  section.aspect .body p:first-of-type::first-letter {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 28pt; line-height: 0.85;
+    color: #9a7e3a;
+    float: left;
+    margin: 2pt 4pt 0 0;
+  }
+
+  /* --- SUB-BLOCKS --- */
+  .sub { margin: 6mm 0 4mm; page-break-inside: avoid; }
+  .sub .sublabel {
+    color: #9a7e3a !important;
+    border-bottom: 1px solid #d9cdb8;
+    padding-bottom: 1mm; margin-bottom: 3mm;
+    font-size: 8.5pt; letter-spacing: 0.22em;
+  }
+
+  /* Indicators */
+  .indicators li { margin-bottom: 1.5mm; }
+
+  /* Pyramid (Destiny) */
+  .pyramid { page-break-inside: avoid; margin: 4mm 0 8mm; }
+  .pyramid .cell {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+  }
+  .pyramid .cell.sum { background: #F6E2E0 !important; border-color: #b53e64 !important; }
+  .pyramid .cell .pn { color: #9a7e3a !important; }
+  .pyramid .cell .pa { color: #2a1f33 !important; }
+
+  /* Program cards */
+  .program-card {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+    border-radius: 4px;
+    padding: 5mm 6mm;
+    margin: 4mm 0;
+    page-break-inside: avoid;
+  }
+  .program-card h3 {
+    color: #9a7e3a !important;
+    font-family: "Didot",Georgia,serif;
+    font-size: 14pt;
+  }
+  .program-card .triple { color: #7a6e5e !important; }
+
+  /* Footer outro */
+  footer.outro {
+    page-break-before: always;
+    break-before: page;
+    border-top: none !important;
+    text-align: center;
+    color: #7a6e5e !important;
+    font-size: 8.5pt; letter-spacing: 0.34em;
+    margin-top: 30mm;
+    padding-top: 0;
+  }
+  footer.outro::before {
+    content: "✦ ✦ ✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 14pt;
+    margin-bottom: 8mm;
+    opacity: 0.6;
+    letter-spacing: 0.6em;
+  }
+}
+
+/* Year report — slight visual differentiation from the Full Matrix:
+   slimmer cover band, the triad meta strip uses three accent cells. */
+.year-triad-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+                    margin: 12px 0 6px 0; }
+.year-triad-strip .cell { background: rgba(255,77,126,0.05); border: 1px solid var(--pink);
+                          border-radius: 10px; padding: 14px 16px; text-align: center; }
+.year-triad-strip .cell .label { color: var(--muted); letter-spacing: 0.16em;
+                                 text-transform: uppercase; font-size: 10px; margin-bottom: 6px; }
+.year-triad-strip .cell .role  { color: var(--gold); font-style: italic; font-size: 12px;
+                                 margin-top: 4px; }
+.year-triad-strip .cell .arc   { color: var(--fg); font-family: "Didot",Georgia,serif;
+                                 font-size: 26px; }
+.year-window { color: var(--gold); letter-spacing: 0.22em; text-transform: uppercase;
+               font-size: 11px; margin-top: 14px; }
+</style>
+</head>
+<body>
+<button class="home-btn" onclick="window.location.href='/'" title="Back to the generator (hidden on published copies clients see)">Home</button>
+<button class="pdf-btn" onclick="window.print()" title="Save as PDF">Download PDF</button>
+<script>
+  (function() {
+    var h = window.location.hostname;
+    var isPublic = h.endsWith("github.io") || h === "hotslavicwitch.com" || h === "www.hotslavicwitch.com";
+    if (!isPublic) {
+      document.querySelector(".home-btn").style.display = "inline-block";
+    }
+  })();
+</script>
+<div class="wrap">
+  <header class="cover">
+    <div class="brand">Hot Slavic Witch · Year Forecast</div>
+    <h1>Katya</h1>
+    <div class="subtitle">16.07.1997 · age 29</div>
+    <div class="year-window">Jul 16, 2026 → Jul 16, 2027</div>
+  </header>
+
+  <div class="chart-wrap">
+    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Matrix of Destiny chart" style="width:100%;max-width:680px;display:block;margin:0 auto;"><defs><radialGradient id="centerGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF4D7E" stop-opacity="0.28"/><stop offset="100%" stop-color="#FF4D7E" stop-opacity="0"/></radialGradient><marker id="arrMale" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#9b87f5"/></marker><marker id="arrFem" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#FF4D7E"/></marker></defs><circle cx="140" cy="140" r="105" fill="url(#centerGlow)"/><polygon points="34.42,145.14 140.00,35.00 245.00,145.14 140.00,254.00" fill="none" stroke="#E8C77E" stroke-width="0.9" opacity="0.85"/><polygon points="65.21,66.93 214.38,66.93 214.38,221.34 65.29,221.00" fill="none" stroke="#E8C77E" stroke-width="0.9" opacity="0.85"/><line x1="34.42" y1="145.14" x2="245.00" y2="145.14" stroke="#9C8FA6" stroke-width="0.5" opacity="0.4"/><line x1="140.00" y1="35.00" x2="140.00" y2="254.00" stroke="#9C8FA6" stroke-width="0.5" opacity="0.4"/><line x1="65.21" y1="66.93" x2="214.38" y2="221.34" stroke="#9b87f5" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrMale)"/><line x1="214.38" y1="66.93" x2="65.29" y2="221.00" stroke="#FF4D7E" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrFem)"/><circle cx="174.88" cy="180.71" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="174.88" y="182.11" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">10</text><circle cx="156.99" cy="199.57" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="156.99" y="200.97" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">22</text><circle cx="192.62" cy="161.86" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="192.62" y="163.26" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">8</text><circle cx="78.14" cy="81.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="78.14" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">17</text><circle cx="89.45" cy="93.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="89.45" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">12</text><circle cx="200.82" cy="81.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="200.82" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">10</text><circle cx="190.30" cy="93.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="190.30" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">22</text><circle cx="79.80" cy="208.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="79.80" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">11</text><circle cx="90.69" cy="196.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="90.69" y="198.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">9</text><circle cx="200.41" cy="208.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="200.41" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">4</text><circle cx="189.89" cy="195.68" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="189.89" y="197.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">19</text><circle cx="103.23" cy="145.14" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="103.23" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#0B0710">14</text><circle cx="140.00" cy="104.43" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="140.00" y="106.18" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#0B0710">5</text><circle cx="140.00" cy="56.43" r="5.5" fill="#4A6FE3" stroke="#E8C77E" stroke-width="0.6"/><text x="140.00" y="58.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">22</text><circle cx="140.00" cy="73.14" r="5.5" fill="#5BC0DE" stroke="#E8C77E" stroke-width="0.6"/><text x="140.00" y="75.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">15</text><circle cx="139.46" cy="216.71" r="5.5" fill="#F0A04B" stroke="#E8C77E" stroke-width="0.6"/><text x="139.46" y="218.81" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">12</text><circle cx="139.59" cy="233.43" r="5.5" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="139.59" y="235.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">16</text><circle cx="70.23" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="70.23" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">6</text><circle cx="54.27" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="54.27" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">22</text><circle cx="208.78" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="208.78" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">16</text><circle cx="224.74" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="224.74" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">6</text><circle cx="161.13" cy="143.43" r="5" fill="#FF4D7E" stroke="#FF4D7E" stroke-width="0.6"/><text x="161.13" y="145.35" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.5" fill="#0B0710">7</text><circle cx="173.56" cy="145.14" r="4.4" fill="#0B0710" stroke="#FF7BA0" stroke-width="0.6"/><text x="173.56" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#F5F1F0">15</text><circle cx="34.42" cy="145.14" r="10" fill="#8E5BD9" stroke="#8E5BD9" stroke-width="0.6"/><text x="34.42" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">16</text><circle cx="140.00" cy="35.00" r="10" fill="#8E5BD9" stroke="#8E5BD9" stroke-width="0.6"/><text x="140.00" y="38.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">7</text><circle cx="245.00" cy="145.14" r="10" fill="#E74C3C" stroke="#E74C3C" stroke-width="0.6"/><text x="245.00" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">8</text><circle cx="140.00" cy="254.00" r="10" fill="#E74C3C" stroke="#E74C3C" stroke-width="0.6"/><text x="140.00" y="257.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">4</text><circle cx="65.21" cy="66.93" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="65.21" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">5</text><circle cx="214.38" cy="66.93" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="214.38" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">15</text><circle cx="214.38" cy="221.34" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="214.38" y="224.84" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">12</text><circle cx="65.29" cy="221.00" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="65.29" y="224.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">20</text><circle cx="140.00" cy="140.00" r="12" fill="#F5C842" stroke="#F5C842" stroke-width="0.6"/><text x="140.00" y="144.20" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="12" fill="#0B0710">8</text></svg>
+    <div class="year-triad-strip">  <div class="cell"><div class="label">Year Arcanum</div>    <div class="arc">7 — The Chariot</div>    <div class="role">what is happening</div></div>  <div class="cell"><div class="label">Mirror Arcanum</div>    <div class="arc">10 — The Wheel of Fortune</div>    <div class="role">why it is happening (the cause)</div></div>  <div class="cell"><div class="label">Outcome Arcanum</div>    <div class="arc">17 — The Star</div>    <div class="role">where it leads</div></div></div>
+    <div class="chart-meta"><div class="cell"><div class="label">Calendar 2026</div><div class="val"><span class="arc">6 (The Lovers)</span></div></div><div class="cell"><div class="label">Decade Corner (age 20)</div><div class="val"><span class="arc">7 (The Chariot)</span></div></div><div class="cell"><div class="label">Age 28</div><div class="val"><span class="arc">10 (The Wheel of Fortune)</span></div></div><div class="cell"><div class="label">Age 30</div><div class="val"><span class="arc">15 (The Devil (Passion))</span></div></div></div>
+  </div>
+
+  <div class="report-intro">This is your year ahead, Katya. The matrix doesn&#x27;t predict events — it names the energy the year is built on. What you do with the energy is the only thing that ever was, or will be, up to you.</div>
+
+  <section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Triad of the Year</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · year arcanum (what is happening): <span class="n">7 (The Chariot)</span> · mirror through centre (why / cause): <span class="n">10 (The Wheel of Fortune)</span> · sum (outcome / where it leads): <span class="n">17 (The Star)</span></div><div class="body"><div class="sub"><div class="sublabel">Arcanum 1</div><p>Okay, Katya — the year ahead at age 29 is governed by the 7 (The Chariot), which means this is a year of expansion, momentum, and victory if you&#x27;re willing to drive. The Chariot doesn&#x27;t ask permission. It moves. This is the year you break past old limits — in career, in visibility, in how much space you take up. Expect acceleration in work projects, promotions, launches, or bold moves that put you on a bigger stage. The 7 demands ambition and forward motion; if you&#x27;ve been playing small, this year will either push you out or make you restless until you push yourself. In money, the Chariot brings growth through action — close the deal, pitch the thing, expand the operation. Sitting still costs you. In love, the 7 energy can be competitive or goal-driven; you might attract high-achiever types or find yourself focused on conquest rather than depth. In health, watch the burnout — the Chariot&#x27;s shadow is running yourself into the ground for the win. This year rewards strategic aggression and disciplined drive. You&#x27;ll feel the pull to charge forward. Let it happen, but steer the thing — don&#x27;t let ego or speed take the wheel.</p></div><div class="sub"><div class="sublabel">Arcanum 2</div><p>The cause sits on the opposite side of your chart — the 10 (The Wheel of Fortune) at age 69. This is the arcanum of cycles, karmic timing, and understanding when to act versus when to wait. The reason the 7 is showing up now is because something in your lineage or past pattern involved passivity, fatalism, or waiting for luck instead of making luck. The Wheel at 69 suggests an ancestral inheritance of &quot;ride it out&quot; energy — grandmothers or great-grandmothers who believed you take what life gives you and don&#x27;t push. That resignation sits in your matrix like silt, and this year the 7 arrives to break it. You&#x27;re being asked to stop waiting for the right moment and *become* the right moment. The 10&#x27;s lesson was learning to read timing; the 7&#x27;s correction is learning that timing also requires will. If you&#x27;ve ever felt stuck in circumstantial loops — same type of relationship, same career plateau, same &quot;bad luck&quot; — this year flips it. The Chariot is karmic permission to stop being passive in your own story. The Wheel dealt the hand. The 7 says play it hard.</p></div><div class="sub"><div class="sublabel">Arcanum 3</div><p>The third arcanum is the sum: 17 (The Star) — the outcome the year is moving toward. This is where the momentum of the 7 wants to deliver you: radiant, visible, and at ease in the spotlight. The Star is the arcanum of hope restored, public recognition, and aesthetic magnetism. If you work the Chariot year well — if you take the risks, make the bold moves, and don&#x27;t burn out in the process — you arrive at 17 energy: the place where your work shines effortlessly, where people see you and want what you have, where your presence becomes the brand. This is muse territory, influencer energy in the best sense, the kind of visibility that feels aligned rather than forced. In love, the Star brings admirers — plural. In work, the Star is the &quot;it girl&quot; moment, the project that takes off, the recognition that feels fated. In health, the 17 outcome suggests you&#x27;ll glow if you protect your nervous system through the 7&#x27;s intensity. The year is a gate. Walk through it with disciplined fire, and you land in the light. The Star doesn&#x27;t arrive by accident — it&#x27;s earned by the Chariot&#x27;s charge.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>Calendar-Year Layer</h2><div class="numbers"><span class="n">6 (The Lovers)</span> · target calendar year: <span class="n">2026</span> · calendar arcanum: <span class="n">6 (The Lovers)</span> · matrix year arcanum: <span class="n">7</span></div><div class="body"><p>Your 2026 calendar arcanum is the 6 (The Lovers) — substitute the target year into your birth date and the digits add to 6: 16.07.2026 → 1+6+0+7+2+0+2+6 = 24 → 2+4 = 6. This stamps the entire calendar year — January 1 to December 31, 2026 — with Lovers energy, while your matrix-year 7 (The Chariot) governs July 16, 2025 to July 16, 2026. Two systems, two different demands, two different tempos.</p><p>Here&#x27;s where they overlap: both arcana want *movement*. The Chariot says push, expand, win. The Lovers say choose, commit, clarify what you actually value. On work and money, they reinforce each other beautifully — Chariot momentum meets Lovers clarity on what deals to take and what to leave behind. You won&#x27;t spin wheels on the wrong partnerships. You&#x27;ll move fast on the right ones. But in love, they pull. The Chariot wants conquest and expansion; the Lovers want a real decision from the heart. If you&#x27;re dating casually through early 2026, the Lovers will push you toward clarity: are you in or out? No more waiting to see. If you&#x27;re already partnered, the Chariot wants to expand *together* — travel, joint projects, ambition as a team — but the Lovers will ask if your values still align or if you&#x27;re running side by side toward different things. The tension is productive if you stay honest.</p><p>Before your July 16 birthday, the Lovers dominate. Expect relationship clarity, values shake-ups, and choice-points in partnerships (romantic or business). After your birthday, the Chariot reasserts — all that clarity becomes fuel for the next expansion.</p></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Year Through Three Lenses</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · year arcanum: <span class="n">7 (The Chariot)</span> · love line: <span class="n">j=12, k=22, l=10</span> · money channel: <span class="n">c=8</span> · money line: <span class="n">l=10, m=8, n=16</span></div><div class="body"><div class="sub"><div class="sublabel">Health &amp; Body</div><p>Katya, The Chariot year accelerates everything — including the wear on your body. This is the arcanum of expansion and momentum, and physically that means your cardiovascular system, adrenals, and nervous system are running hotter than usual. Watch for stress-driven spikes: elevated heart rate, tension headaches, jaw clenching, restless sleep. The Chariot doesn&#x27;t know how to coast, so you&#x27;ll need to manually install the brake pedal. Schedule downtime like it&#x27;s a business meeting — non-negotiable. Your body will try to keep pace with your ambition, but it can&#x27;t sprint for twelve months straight. The specific danger zone is burnout disguised as productivity. You&#x27;ll feel invincible right up until you&#x27;re not. Red flags: persistent fatigue that coffee doesn&#x27;t touch, digestive issues (stress hits the gut when you ignore it), or a cold that lingers because your immune system is stretched thin. What helps: anything that forces you to slow down without guilt. Massage, acupuncture, long baths, deliberate meals instead of eating at your desk. Movement is good — but make it rhythmic and grounding, not another competitive sprint. If you notice heart palpitations, persistent insomnia, or anxiety that feels physical rather than mental, see a doctor. Don&#x27;t wait. The Chariot&#x27;s lesson this year is that real power includes knowing when to rest. Your 16 portrait means you&#x27;ve survived crashes before — don&#x27;t invite one by ignoring the body&#x27;s early warnings. Pace yourself. The war is long.</p></div><div class="sub"><div class="sublabel">Work &amp; Money</div><p>This is a victory lap year if you&#x27;re willing to claim it. The Chariot opens doors that were previously locked — new clients, promotions, opportunities that feel like they arrived because you finally *looked ready*. Your talent is also a 7, so this year you&#x27;re operating at full throttle in the arena you were built for. The momentum is real. The trap is scattered focus. The Chariot wants to charge in every direction at once, and that&#x27;s how you end up exhausted with nothing finished. Pick your battlefield. One or two big moves, executed with discipline, will net you more than ten half-hearted sprints. Your money channel is the 8 — Justice — which means your income flows through fairness, contracts, and structured deals. This year, push for what you&#x27;re owed. Renegotiate. Formalize the handshake agreements. The Chariot&#x27;s expansion energy will make people more willing to say yes, but only if you ask with clarity and confidence. Your money line runs 10-8-16, so timing and leverage matter. The 10 (Wheel of Fortune) at the threshold says opportunities will show up — sometimes out of nowhere — but they won&#x27;t wait around. Move fast when the door cracks open. The danger is overextension. The Chariot can make you feel invincible, which leads to overspending, overcommitting, or taking on debt because &quot;it&#x27;ll all work out.&quot; It won&#x27;t unless you build the structure to match the ambition. Big purchases this year? Only if they&#x27;re strategic and you&#x27;ve done the math twice. This is a year for calculated risk, not blind faith. Your 8 centre keeps you honest. Use it.</p></div><div class="sub"><div class="sublabel">Love &amp; Relationships</div><p>The Chariot year is about momentum, and in love that means either acceleration or exit — rarely stasis. If you&#x27;re single, you&#x27;ll meet someone, but the timing is tricky. Your love line starts with the 12 (The Hanged Man) as the block, which means you&#x27;ve historically stalled out in the liminal space — waiting, over-thinking, sacrificing your own pace for someone else&#x27;s maybe. This year, the 7 energy won&#x27;t tolerate that. You&#x27;ll feel the urge to move forward, and if the person in front of you isn&#x27;t matching your speed, you&#x27;ll leave. Good. Your ideal partner is the 22 (The Fool) — total freedom, no scripts, someone who can keep up with your expansiveness without trying to tame it. The Chariot year makes you magnetic to people who are also in motion, so if someone shows up, they&#x27;ll likely be ambitious, adventurous, or in the middle of their own big move. The risk is mistaking intensity for compatibility. The Chariot&#x27;s speed can make a three-week thing feel like fate. Slow down enough to check if they&#x27;re running *toward* something or just running. If you&#x27;re in a relationship, this year tests whether it can expand with you. The 22 at the heart of your love line craves space, play, and evolution — if your partner is trying to keep you small or still, the Chariot energy will make that intolerable. Conversations about the future, relocation, or shared ambition will surface. If they can dream as big as you do, this year solidifies the bond. If they can&#x27;t, you&#x27;ll outgrow them by autumn. The 10 at the end of your love line says the outcome depends on timing and willingness to move. Don&#x27;t force it. But don&#x27;t wait forever either.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>High Road vs. Shadow</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · arcanum: <span class="n">7 (The Chariot)</span> · light: <span class="n">expansion, victorious momentum, ambition, willful progress</span> · shadow: <span class="n">aggression, bulldozing others, burnout, ego-driven war</span></div><div class="body"><div class="sub"><div class="sublabel">High Road</div><p>This is a year of controlled velocity, Katya. The high road looks like disciplined ambition — you know where you&#x27;re going and you move with purpose, not panic. You&#x27;re saying yes to the right opportunities and no without guilt to the wrong ones. You&#x27;re expanding — new territory, new income streams, new rooms in the house of your life — but you&#x27;re building as you go, not just grabbing. The 7 asks you to lead, and on the high road you do it without steamrolling. You bring people with you. You delegate. You rest between sprints. By your 30th birthday, you&#x27;ve claimed visible ground: a project launched, a title earned, a border crossed. The momentum is real and it&#x27;s *yours*, not borrowed adrenaline. You look back and see a clean year of forward motion.</p></div><div class="sub"><div class="sublabel">Shadow Track</div><p>The shadow is all gas pedal, no brake. You&#x27;re pushing so hard you stop listening — to your body, to feedback, to the people trying to help. Everything becomes a battlefield and you&#x27;re fighting wars that didn&#x27;t need to start. You confuse speed with progress. You say yes to everything because stopping feels like losing, and by month six you&#x27;re burnt, resentful, and running on fumes. The 7&#x27;s shadow makes you bulldoze: you talk over people, you corner-cut, you start treating allies like obstacles. The ugly part? It works for a while. You get things done. But by your next birthday, Katya, you&#x27;re exhausted, isolated, and the wins feel hollow because you scorched the earth getting there. Watch for the signs: chronic irritability, stress headaches, picking fights you don&#x27;t need to win.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Year, Phase by Phase</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · Q1 (July–September): <span class="n">phase of the year arcanum</span> · Q2 (October–December): <span class="n">phase of the year arcanum</span> · Q3 (January–March): <span class="n">phase of the year arcanum</span> · Q4 (April–June): <span class="n">phase of the year arcanum</span></div><div class="body"><p>Quarter 1 (July–September): The engines roar. Your 7-year arrives with July&#x27;s heat and it wants velocity. The Chariot doesn&#x27;t ease you in — it hands you the reins and says drive. Watch for an immediate uptick in ambition, a sudden restlessness with wherever you&#x27;ve been coasting. Work opportunities surface fast, possibly a project that demands you step up visibly or a conversation that changes your professional trajectory. Your body feels the shift — you might crave more physical output, push harder at the gym, or notice your energy runs hotter and shorter. Relationships get tested early: anyone who can&#x27;t keep pace with your new tempo will feel the gap. This quarter is about recognizing that you&#x27;re no longer interested in slow. The door opens. You either walk through it or you don&#x27;t.</p><p>Quarter 2 (October–December): The pace intensifies and so do the tests. By October the honeymoon phase of your Chariot year is over — now you&#x27;re driving in traffic. Obstacles appear specifically to see if you&#x27;ll bulldoze or negotiate. Money conversations get serious; if you&#x27;ve been undercharging or undervaluing your work, this quarter forces the reckoning. Professionally, you&#x27;re visible whether you like it or not — which means every move gets noticed. The shadow of the 7 is aggression and ego, and December will show you where you&#x27;ve been pushing too hard or burning bridges for the sake of speed. Health-wise, watch for stress-related flare-ups — tension headaches, tight shoulders, burnout creeping in if you refuse to pace yourself. The lesson here: momentum is not the same as control. Learn the difference before the year&#x27;s second half arrives.</p><p>Quarter 3 (January–March): The crest. This is the hardest stretch of your Chariot year and also the most rewarding if you&#x27;ve been doing the work. January through March is when the expansion you&#x27;ve been chasing either solidifies or collapses under its own weight. Career peaks here — a promotion, a launch, a public win, or alternatively a crash that shows you what wasn&#x27;t built to last. Love gets real: if there&#x27;s someone worth keeping, this quarter asks you to slow down enough to actually see them. If you&#x27;ve been running solo, you&#x27;ll feel the loneliness sharper now. The body demands rest you haven&#x27;t been giving it — ignore that at your peril. March in particular is a pivot point: you&#x27;ll know by the end of it whether you&#x27;re building an empire or just making noise. The difference is in the foundation. The 7 doesn&#x27;t forgive shortcuts.</p><p>Quarter 4 (April–June): Integration and harvest. By April the year&#x27;s wildest energy starts to settle, but don&#x27;t mistake that for a slowdown — this is where you collect what you&#x27;ve earned. If you&#x27;ve been strategic, disciplined, and honest about your capacity, this quarter brings tangible results: money lands, recognition solidifies, projects close with grace. If you&#x27;ve been reckless, you&#x27;re cleaning up the mess. Either way, June asks you to look at what you&#x27;re carrying into your next year. The Chariot taught you how to move fast, but the real question is: did you go somewhere worth arriving at? Relationships that survived your velocity are now deeper. The ones that didn&#x27;t were never going to make it. Your body either feels stronger or exhausted — that&#x27;s your report card. Use these final months to consolidate. Your 30th year is coming, and it won&#x27;t let you coast.</p></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>Where This Year Sits in the Decade</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · age 28: <span class="n">10 (The Wheel of Fortune)</span> · age 29: <span class="n">7 (The Chariot)</span> · age 30: <span class="n">15 (The Devil (Passion))</span> · decade corner (age 20): <span class="n">7 (The Chariot)</span> · decade midpoint: <span class="n">22 (The Fool (Jester / Freedom))</span></div><div class="body"><p>You just came off 28 and Arcanum 10 — the Wheel — which dealt in timing, cycles, luck that felt out of your hands. That year taught you to read the room and catch momentum when it showed up. Now you&#x27;re 29, and the game has changed: you&#x27;re in Arcanum 7, the Chariot. This is a year of expansion and willful progress. No more waiting for the wheel to turn — you&#x27;re driving it. Expect forward motion in work, visibility, ambition; this is conquest energy, Katya. The body wants more, the career wants more, and you&#x27;ll feel the urge to push harder than you have in years. The shadow: burnout if you can&#x27;t pace yourself, or aggression if you bulldoze people on the way up. Next year at 30 you step into Arcanum 15, the Devil — taboo desire, magnetic tests, big purchases or shady opportunities. That&#x27;s the year desire stops being polite. Right now you&#x27;re building the momentum that will demand an answer then.</p><p>Zoom out: your entire decade from ages 20 to 30 is anchored by Arcanum 7 at age 20. The Chariot has been the through-line of your twenties — the lesson of this whole arc is *expansion under your own power*. This year isn&#x27;t just another step; it&#x27;s a pivot year. The current energy and the decade anchor are the same card. You&#x27;ve circled back to the original assignment. Everything you&#x27;ve learned since 20 is being stress-tested now. This is the decade&#x27;s final exam before you graduate into the thirties.</p></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Move &amp; The Trap</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · year arcanum: <span class="n">7 (The Chariot)</span></div><div class="body"><div class="sub"><div class="sublabel">The Move</div><p>Launch the thing. This is a 7 year — the Chariot demands forward motion, not research. Your talent IS the 7, so this energy knows you by name. The move is to pick one expansion project (the book, the business pivot, the relocation you&#x27;ve been circling) and commit resources NOW — money, time, visible action. Your 10 in the money line says timing is on your side if you read the cycles and move fast. Your love 12 wants to wait and overthink; ignore it this year. The Emperor karma taught you to fear overstepping — this year asks you to step BECAUSE you&#x27;re afraid. Momentum is the strategy. One clear target, full acceleration. If you hedge or delay until &quot;ready,&quot; the year&#x27;s gift passes you by.</p></div><div class="sub"><div class="sublabel">The Trap</div><p>Bulldozing without checking the mirrors. The Chariot&#x27;s shadow is conquest that leaves wreckage — burning relationships for speed, ego-driving past red flags, expanding so fast the foundation cracks. Your 16 in money warns the Tower can come from YOUR recklessness, not fate&#x27;s. The trap is mistaking aggression for ambition. Check in monthly: am I building an empire or feeding my own war? Your 8 centre knows the difference — listen to her. Move hard, but not blind. You&#x27;re allowed to win without scorched earth, Katya.</p></div></div></section>
+
+  <footer class="outro">
+    The triad names the year. Walk it on the high road and the third arcanum is what you carry into the next birthday.
+  </footer>
+</div>
+</body>
+</html>
