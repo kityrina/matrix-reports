@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Asha — Year 2026–2027 Forecast</title>
+<style>
+:root {
+  --bg: #0B0710;
+  --fg: #F5F1F0;
+  --muted: #9C8FA6;
+  --gold: #E8C77E;
+  --pink: #FF4D7E;
+  --rule: #2a1f33;
+  --paid: rgba(232,199,126,0.18);
+}
+* { box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  margin: 0; padding: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 880px; margin: 0 auto; padding: 56px 28px 96px; }
+
+header.cover { text-align: center; padding: 28px 0 8px; border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+header.cover .brand { letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); font-size: 11px; margin-bottom: 18px; }
+header.cover h1 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 44px; margin: 0 0 6px; letter-spacing: 0.02em; }
+header.cover .subtitle { color: var(--muted); font-style: italic; font-size: 16px; }
+
+.chart-wrap {
+  background: linear-gradient(180deg,#14091f 0%,#0B0710 100%);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 28px 18px 12px;
+  margin: 32px 0 28px;
+}
+.chart-meta {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  margin-top: 18px;
+  font-size: 13px;
+}
+.chart-meta .cell { background: rgba(255,255,255,0.025); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; }
+.chart-meta .label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; margin-bottom: 4px; }
+.chart-meta .val { color: var(--fg); font-size: 14px; }
+.chart-meta .val .arc { color: var(--gold); }
+
+.report-intro {
+  font-size: 16px; line-height: 1.7;
+  background: rgba(255,77,126,0.05);
+  border-left: 2px solid var(--pink);
+  padding: 18px 22px; margin: 28px 0 8px;
+  font-style: italic;
+}
+
+section.aspect { padding: 36px 0; border-bottom: 1px solid var(--rule); }
+section.aspect:last-child { border-bottom: none; }
+section.aspect .eyebrow { color: var(--gold); letter-spacing: 0.28em; text-transform: uppercase; font-size: 11px; margin-bottom: 8px; }
+section.aspect h2 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 30px; margin: 0 0 6px; letter-spacing: 0.01em; }
+section.aspect .numbers { color: var(--muted); font-size: 12px; margin-bottom: 22px; font-style: italic; }
+section.aspect .numbers .n { color: var(--gold); font-style: normal; }
+section.aspect .body { font-size: 16.5px; line-height: 1.78; color: #EDE6E2; }
+section.aspect .body p { margin: 0 0 1.05em; }
+
+.sub { margin: 24px 0 18px; }
+.sub .sublabel {
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.indicators { padding-left: 20px; margin: 8px 0 16px; }
+.indicators li { margin-bottom: 4px; }
+.paid-box {
+  background: var(--paid);
+  border: 1px dashed var(--gold);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 14px;
+}
+.paid-box strong { color: var(--gold); font-style: normal; }
+
+.pyramid { margin: 16px 0 24px; display: flex; flex-direction: column; gap: 14px; }
+.pyramid .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; align-items: center; }
+.pyramid .row.alone { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+.pyramid .cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+}
+.pyramid .cell .pl { color: var(--muted); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+.pyramid .cell .pn { color: var(--gold); font-size: 16px; font-weight: 600; }
+.pyramid .cell .pa { color: var(--fg); font-size: 12px; font-style: italic; margin-top: 2px; }
+.pyramid .cell.sum { background: rgba(255,77,126,0.08); border-color: var(--pink); }
+
+.program-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 14px 0;
+}
+.program-card h3 { margin: 0 0 4px; font-family: "Didot",Georgia,serif; font-size: 20px; font-weight: 400; color: var(--gold); }
+.program-card .triple { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
+.program-card .strengths { font-size: 15px; line-height: 1.6; margin-bottom: 10px; }
+
+footer.outro {
+  margin-top: 56px; padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  text-align: center; color: var(--muted);
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+
+/* Floating download-PDF button (hidden when printing). */
+.pdf-btn {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--pink); color: #0B0710;
+  border: none; border-radius: 999px;
+  padding: 14px 22px;
+  font-family: Georgia, serif; font-size: 14px; font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 100;
+  transition: transform 0.15s, filter 0.15s;
+}
+.pdf-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.pdf-btn::before { content: "↓ "; margin-right: 4px; }
+
+/* Floating "Home" button — visible only when served from localhost, never
+   on a published copy and never in print. JS toggles display at load. */
+.home-btn {
+  position: fixed;
+  top: 24px; left: 24px;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: Georgia, serif; font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 100;
+  display: none;                /* hidden by default */
+  transition: all 0.15s;
+}
+.home-btn:hover { background: rgba(232,199,126,0.1); transform: translateY(-1px); }
+.home-btn::before { content: "← "; margin-right: 2px; opacity: 0.7; }
+
+/* ============================================================ */
+/* PRINT / PDF — light magazine-style theme.                    */
+/* Triggered by browser Print dialog (Ctrl+P / Cmd+P).          */
+/* ============================================================ */
+
+@page {
+  size: A4;
+  margin: 24mm 22mm 26mm 22mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: Georgia, serif;
+    font-size: 9pt;
+    color: #8a7a5b;
+  }
+  @top-right {
+    content: string(report-title);
+    font-family: Georgia, serif;
+    font-size: 8pt;
+    color: #b5a682;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+@page :first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+@media print {
+  :root {
+    --bg: #FBF7F2;
+    --fg: #1a1320;
+    --muted: #7a6e5e;
+    --gold: #9a7e3a;
+    --pink: #b53e64;
+    --rule: #d9cdb8;
+  }
+  html, body { background: #FBF7F2 !important; color: #1a1320 !important; }
+  body { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  /* Hide on-screen-only controls */
+  .pdf-btn { display: none !important; }
+  .home-btn { display: none !important; }
+
+  /* String for header — set from cover h1 */
+  header.cover h1 { string-set: report-title content(); }
+
+  .wrap { max-width: 100%; padding: 0; margin: 0; }
+
+  /* --- COVER PAGE (full-bleed) --- */
+  header.cover {
+    page: cover;
+    height: 297mm;
+    margin: 0;
+    padding: 40mm 20mm 30mm;
+    border: none;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 38%, rgba(232,199,126,0.18), transparent 55%),
+      linear-gradient(180deg, #FBF7F2, #F0E7D6 70%, #E8DDC4);
+    box-sizing: border-box;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+  }
+  header.cover .brand {
+    color: #9a7e3a !important;
+    font-size: 9pt; letter-spacing: 0.45em;
+    margin-bottom: 24mm;
+  }
+  header.cover h1 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 56pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 8mm; letter-spacing: 0.01em;
+  }
+  header.cover .subtitle {
+    color: #5a4e3d !important; font-style: italic;
+    font-size: 13pt; margin-bottom: 18mm;
+  }
+
+  /* Decorative cover ornament */
+  header.cover::after {
+    content: "✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 18pt;
+    margin-top: auto;
+    margin-bottom: 8mm;
+    opacity: 0.7;
+  }
+
+  /* --- MATRIX CHART --- on its own page, light theme --- */
+  .chart-wrap {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin: 0 0 10mm;
+    page-break-before: avoid;
+    page-break-after: always;
+    break-after: page;
+  }
+  .chart-wrap svg { max-width: 150mm !important; margin: 0 auto !important; display: block !important; }
+
+  /* Repaint SVG fills for print readability */
+  .chart-wrap svg circle[fill="#0B0710"] { fill: #FBF7F2 !important; }
+  .chart-wrap svg text[fill="#F5F1F0"] { fill: #1a1320 !important; }
+  .chart-wrap svg text[fill="#E8C77E"] { fill: #9a7e3a !important; }
+  .chart-wrap svg polygon[stroke="#E8C77E"] { stroke: #9a7e3a !important; }
+  .chart-wrap svg line[stroke="#9C8FA6"] { stroke: #7a6e5e !important; }
+  .chart-wrap svg circle[fill="url(#centerGlow)"] { fill: rgba(181,62,100,0.10) !important; }
+
+  /* Chart meta — softer table for print */
+  .chart-meta {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6mm !important; margin-top: 8mm !important;
+    page-break-inside: avoid;
+  }
+  .chart-meta .cell {
+    background: transparent !important;
+    border: 1px solid #d9cdb8 !important;
+    color: #2a1f33 !important;
+    padding: 6mm 5mm !important;
+  }
+  .chart-meta .label { color: #7a6e5e !important; }
+  .chart-meta .val .arc { color: #9a7e3a !important; }
+
+  /* --- INTRO --- */
+  .report-intro {
+    background: transparent !important;
+    border: none !important;
+    border-top: 1px solid #d9cdb8 !important;
+    border-bottom: 1px solid #d9cdb8 !important;
+    margin: 12mm 0 !important;
+    padding: 8mm 6mm !important;
+    color: #3a2e23 !important;
+    font-style: italic;
+    text-align: center;
+    font-size: 12pt;
+    page-break-inside: avoid;
+  }
+
+  /* --- ASPECT SECTIONS --- */
+  section.aspect {
+    page-break-before: always;
+    break-before: page;
+    border-bottom: none !important;
+    padding: 0 4mm 6mm !important;     /* extra inner breathing room */
+  }
+  section.aspect:first-of-type { page-break-before: auto; break-before: auto; }
+  section.aspect .eyebrow {
+    color: #9a7e3a !important; font-size: 8pt; letter-spacing: 0.34em;
+    margin-bottom: 4mm;
+  }
+  section.aspect h2 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 32pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 3mm;
+  }
+  section.aspect h2::after {
+    content: "";
+    display: block;
+    width: 30mm;
+    height: 1px;
+    background: #9a7e3a;
+    margin: 4mm 0;
+    opacity: 0.6;
+  }
+  section.aspect .numbers {
+    color: #7a6e5e !important; font-size: 9pt;
+    margin-bottom: 6mm;
+    font-style: italic;
+  }
+  section.aspect .numbers .n { color: #9a7e3a !important; }
+  section.aspect .body {
+    font-size: 11pt; line-height: 1.6;
+    color: #1a1320 !important;
+  }
+  section.aspect .body p { margin: 0 0 3mm; orphans: 3; widows: 3; }
+  section.aspect .body p:first-of-type::first-letter {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 28pt; line-height: 0.85;
+    color: #9a7e3a;
+    float: left;
+    margin: 2pt 4pt 0 0;
+  }
+
+  /* --- SUB-BLOCKS --- */
+  .sub { margin: 6mm 0 4mm; page-break-inside: avoid; }
+  .sub .sublabel {
+    color: #9a7e3a !important;
+    border-bottom: 1px solid #d9cdb8;
+    padding-bottom: 1mm; margin-bottom: 3mm;
+    font-size: 8.5pt; letter-spacing: 0.22em;
+  }
+
+  /* Indicators */
+  .indicators li { margin-bottom: 1.5mm; }
+
+  /* Pyramid (Destiny) */
+  .pyramid { page-break-inside: avoid; margin: 4mm 0 8mm; }
+  .pyramid .cell {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+  }
+  .pyramid .cell.sum { background: #F6E2E0 !important; border-color: #b53e64 !important; }
+  .pyramid .cell .pn { color: #9a7e3a !important; }
+  .pyramid .cell .pa { color: #2a1f33 !important; }
+
+  /* Program cards */
+  .program-card {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+    border-radius: 4px;
+    padding: 5mm 6mm;
+    margin: 4mm 0;
+    page-break-inside: avoid;
+  }
+  .program-card h3 {
+    color: #9a7e3a !important;
+    font-family: "Didot",Georgia,serif;
+    font-size: 14pt;
+  }
+  .program-card .triple { color: #7a6e5e !important; }
+
+  /* Footer outro */
+  footer.outro {
+    page-break-before: always;
+    break-before: page;
+    border-top: none !important;
+    text-align: center;
+    color: #7a6e5e !important;
+    font-size: 8.5pt; letter-spacing: 0.34em;
+    margin-top: 30mm;
+    padding-top: 0;
+  }
+  footer.outro::before {
+    content: "✦ ✦ ✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 14pt;
+    margin-bottom: 8mm;
+    opacity: 0.6;
+    letter-spacing: 0.6em;
+  }
+}
+
+/* Year report — slight visual differentiation from the Full Matrix:
+   slimmer cover band, the triad meta strip uses three accent cells. */
+.year-triad-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+                    margin: 12px 0 6px 0; }
+.year-triad-strip .cell { background: rgba(255,77,126,0.05); border: 1px solid var(--pink);
+                          border-radius: 10px; padding: 14px 16px; text-align: center; }
+.year-triad-strip .cell .label { color: var(--muted); letter-spacing: 0.16em;
+                                 text-transform: uppercase; font-size: 10px; margin-bottom: 6px; }
+.year-triad-strip .cell .role  { color: var(--gold); font-style: italic; font-size: 12px;
+                                 margin-top: 4px; }
+.year-triad-strip .cell .arc   { color: var(--fg); font-family: "Didot",Georgia,serif;
+                                 font-size: 26px; }
+.year-window { color: var(--gold); letter-spacing: 0.22em; text-transform: uppercase;
+               font-size: 11px; margin-top: 14px; }
+</style>
+</head>
+<body>
+<button class="home-btn" onclick="window.location.href='/'" title="Back to the generator (hidden on published copies clients see)">Home</button>
+<button class="pdf-btn" onclick="window.print()" title="Save as PDF">Download PDF</button>
+<script>
+  (function() {
+    var h = window.location.hostname;
+    var isPublic = h.endsWith("github.io") || h === "hotslavicwitch.com" || h === "www.hotslavicwitch.com";
+    if (!isPublic) {
+      document.querySelector(".home-btn").style.display = "inline-block";
+    }
+  })();
+</script>
+<div class="wrap">
+  <header class="cover">
+    <div class="brand">Hot Slavic Witch · Year Forecast</div>
+    <h1>Asha</h1>
+    <div class="subtitle">24.06.1994 · age 32</div>
+    <div class="year-window">Jun 24, 2026 → Jun 24, 2027</div>
+  </header>
+
+  <div class="chart-wrap">
+    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Matrix of Destiny chart" style="width:100%;max-width:680px;display:block;margin:0 auto;"><defs><radialGradient id="centerGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF4D7E" stop-opacity="0.28"/><stop offset="100%" stop-color="#FF4D7E" stop-opacity="0"/></radialGradient><marker id="arrMale" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#9b87f5"/></marker><marker id="arrFem" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#FF4D7E"/></marker></defs><circle cx="140" cy="140" r="105" fill="url(#centerGlow)"/><polygon points="34.42,145.14 140.00,35.00 245.00,145.14 140.00,254.00" fill="none" stroke="#E8C77E" stroke-width="0.9" opacity="0.85"/><polygon points="65.21,66.93 214.38,66.93 214.38,221.34 65.29,221.00" fill="none" stroke="#E8C77E" stroke-width="0.9" opacity="0.85"/><line x1="34.42" y1="145.14" x2="245.00" y2="145.14" stroke="#9C8FA6" stroke-width="0.5" opacity="0.4"/><line x1="140.00" y1="35.00" x2="140.00" y2="254.00" stroke="#9C8FA6" stroke-width="0.5" opacity="0.4"/><line x1="65.21" y1="66.93" x2="214.38" y2="221.34" stroke="#9b87f5" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrMale)"/><line x1="214.38" y1="66.93" x2="65.29" y2="221.00" stroke="#FF4D7E" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrFem)"/><circle cx="174.88" cy="180.71" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="174.88" y="182.11" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">18</text><circle cx="156.99" cy="199.57" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="156.99" y="200.97" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">6</text><circle cx="192.62" cy="161.86" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="192.62" y="163.26" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">3</text><circle cx="78.14" cy="81.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="78.14" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">11</text><circle cx="89.45" cy="93.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="89.45" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">17</text><circle cx="200.82" cy="81.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="200.82" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">9</text><circle cx="190.30" cy="93.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="190.30" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">16</text><circle cx="79.80" cy="208.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="79.80" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">15</text><circle cx="90.69" cy="196.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="90.69" y="198.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">10</text><circle cx="200.41" cy="208.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="200.41" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">4</text><circle cx="189.89" cy="195.68" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="189.89" y="197.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">9</text><circle cx="103.23" cy="145.14" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="103.23" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#0B0710">20</text><circle cx="140.00" cy="104.43" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="140.00" y="106.18" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#0B0710">20</text><circle cx="140.00" cy="56.43" r="5.5" fill="#4A6FE3" stroke="#E8C77E" stroke-width="0.6"/><text x="140.00" y="58.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">19</text><circle cx="140.00" cy="73.14" r="5.5" fill="#5BC0DE" stroke="#E8C77E" stroke-width="0.6"/><text x="140.00" y="75.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">13</text><circle cx="139.46" cy="216.71" r="5.5" fill="#F0A04B" stroke="#E8C77E" stroke-width="0.6"/><text x="139.46" y="218.81" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">6</text><circle cx="139.59" cy="233.43" r="5.5" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="139.59" y="235.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">5</text><circle cx="70.23" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="70.23" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">13</text><circle cx="54.27" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="54.27" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">19</text><circle cx="208.78" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="208.78" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">12</text><circle cx="224.74" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="224.74" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">17</text><circle cx="161.13" cy="143.43" r="5" fill="#FF4D7E" stroke="#FF4D7E" stroke-width="0.6"/><text x="161.13" y="145.35" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.5" fill="#0B0710">5</text><circle cx="173.56" cy="145.14" r="4.4" fill="#0B0710" stroke="#FF7BA0" stroke-width="0.6"/><text x="173.56" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#F5F1F0">12</text><circle cx="34.42" cy="145.14" r="10" fill="#8E5BD9" stroke="#8E5BD9" stroke-width="0.6"/><text x="34.42" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">6</text><circle cx="140.00" cy="35.00" r="10" fill="#8E5BD9" stroke="#8E5BD9" stroke-width="0.6"/><text x="140.00" y="38.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">6</text><circle cx="245.00" cy="145.14" r="10" fill="#E74C3C" stroke="#E74C3C" stroke-width="0.6"/><text x="245.00" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">5</text><circle cx="140.00" cy="254.00" r="10" fill="#E74C3C" stroke="#E74C3C" stroke-width="0.6"/><text x="140.00" y="257.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">17</text><circle cx="65.21" cy="66.93" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="65.21" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">12</text><circle cx="214.38" cy="66.93" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="214.38" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">11</text><circle cx="214.38" cy="221.34" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="214.38" y="224.84" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">22</text><circle cx="65.29" cy="221.00" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="65.29" y="224.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">5</text><circle cx="140.00" cy="140.00" r="12" fill="#F5C842" stroke="#F5C842" stroke-width="0.6"/><text x="140.00" y="144.20" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="12" fill="#0B0710">7</text></svg>
+    <div class="year-triad-strip">  <div class="cell"><div class="label">Year Arcanum</div>    <div class="arc">20 — Judgement (Awakening)</div>    <div class="role">what is happening</div></div>  <div class="cell"><div class="label">Mirror Arcanum</div>    <div class="arc">21 — The World</div>    <div class="role">why it is happening (the cause)</div></div>  <div class="cell"><div class="label">Outcome Arcanum</div>    <div class="arc">5 — The Hierophant</div>    <div class="role">where it leads</div></div></div>
+    <div class="chart-meta"><div class="cell"><div class="label">Undercurrent</div><div class="val"><span class="arc">22 (The Fool (Jester / Freedom))</span></div></div><div class="cell"><div class="label">Decade Corner (age 30)</div><div class="val"><span class="arc">11 (Strength)</span></div></div><div class="cell"><div class="label">Age 31</div><div class="val"><span class="arc">20 (Judgement (Awakening))</span></div></div><div class="cell"><div class="label">Age 33</div><div class="val"><span class="arc">9 (The Hermit)</span></div></div></div>
+  </div>
+
+  <div class="report-intro">This is your year ahead, Asha. The matrix doesn&#x27;t predict events — it names the energy the year is built on. What you do with the energy is the only thing that ever was, or will be, up to you.</div>
+
+  <section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Triad of the Year</h2><div class="numbers"><span class="n">20 (Judgement (Awakening))</span> · year arcanum (what is happening): <span class="n">20 (Judgement (Awakening))</span> · mirror through centre (why / cause): <span class="n">21 (The World)</span> · sum (outcome / where it leads): <span class="n">5 (The Hierophant)</span></div><div class="body"><div class="sub"><div class="sublabel">Arcanum 1</div><p>Okay, Asha — the year ahead at age 32 is governed by the 20 (Judgement (Awakening)), which means calling. This is the year the lineage wakes you up. Something ancestral — a family pattern, a generational wound, maybe literal ancestry work — rises to the surface and demands attention. The 20 doesn&#x27;t ask politely. It shows up as reckoning, sudden clarity about where you came from, and what you&#x27;re here to repair or complete. Health-wise, this can be a year of psychosomatic breakthrough — old shame or inherited tension leaving the body once you name it. Work and money carry a legacy flavour: you might step into a role that feels like it was waiting for you, or find yourself building something that honours what came before while breaking what didn&#x27;t work. In love, the 20 asks whether the relationship serves the future or just appeases the past. Expect moments of stark honesty — with yourself, with your people, with the story you&#x27;ve been living. The year will feel like an awakening because it is one. You&#x27;re being asked to answer a question older than you are.</p></div><div class="sub"><div class="sublabel">Arcanum 2</div><p>The cause sits on the opposite side of your chart — the 21 (The World) at age 72. That&#x27;s completion energy, mastery, the integrated self at the end of the cycle. The reason Judgement is hitting you now, at 32, is because you&#x27;re being pulled toward that future wholeness. The World at 72 says: you were meant to finish something big, leave a legacy, close a chapter with grace. But to get there, the unfinished has to surface first. The 21-as-cause often points to perfectionism or premature closure — a pattern of declaring things &quot;done&quot; before they actually are, or of sitting on the edge of mastery without fully claiming it. There&#x27;s also an ancestral thread here: someone in your line didn&#x27;t get to complete their work, and you&#x27;re carrying that unfinished business forward. This year&#x27;s awakening is the inheritance showing itself so you can metabolise it. The World across the axis is saying: you can&#x27;t skip steps. Walk through the fire of the 20, and the future mastery is yours.</p></div><div class="sub"><div class="sublabel">Arcanum 3</div><p>The third arcanum is the sum: 5 (The Hierophant) — the outcome the year is moving toward. If you walk this year well, you land in the territory of the mentor, the institutional master, the one who passes knowledge through the lineage. The 5 is about claiming your place in a tradition — not as a follower, but as someone who carries the teaching forward. This outcome makes perfect sense after a Judgement year: you wake up to the ancestry, you own the reckoning, and then you step into the role of elder-in-training. By the time you cross into 33, you&#x27;ll have a new relationship to authority — yours and others&#x27;. You might formalise something: a credential, a mentorship role, a structure that didn&#x27;t exist before. The Hierophant is also your money channel and your heart&#x27;s desire, Asha, so this year is delivering you toward the work you were built for. The outcome isn&#x27;t chaos. It&#x27;s order. It&#x27;s you, standing in your lineage, holding the keys, ready to teach what you&#x27;ve learned.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Undercurrent</h2><div class="numbers"><span class="n">22 (The Fool (Jester / Freedom))</span></div><div class="body"><p>Underneath the Judgement, there&#x27;s a second pull — the 22 (The Fool). Complete freedom. The energy of walking away from everything, zero fucks given, infinite possibility. This is the arcanum that doesn&#x27;t answer to anyone, doesn&#x27;t finish what it starts, and lives by its own compass.</p><p>Here&#x27;s what that does to your year. The 20 is pulling you toward legacy, ancestral reckoning, serious grown-up work that matters beyond you. The 22 is whispering in the other ear: *What if you just left? What if none of this is yours to carry?* It&#x27;s not sabotage — it&#x27;s a legitimate question. You&#x27;ll feel it strongest when the Judgement energy gets heavy, when the lineage work feels like a cage, when the calling demands too much structure. That&#x27;s when the Fool surfaces and reminds you that you&#x27;re allowed to be irresponsible, to play, to quit what isn&#x27;t actually yours.</p><p>The tension shows up practically. You&#x27;ll commit to something big (the 20 demands it), then halfway through feel the urge to blow it up and start over somewhere else. You&#x27;ll have moments of deep seriousness followed by reckless spontaneity. The trick: the 22 isn&#x27;t asking you to abandon the work. It&#x27;s asking you to do it *without* making it your identity. The year dominates your daytime — the actual structures, the commitments. The undercurrent surfaces at night, in private, when no one&#x27;s watching. Let it breathe. You need both.</p></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Year Through Three Lenses</h2><div class="numbers"><span class="n">20 (Judgement (Awakening))</span> · year arcanum: <span class="n">20 (Judgement (Awakening))</span> · love line: <span class="n">j=6, k=6, l=18</span> · money channel: <span class="n">c=5</span> · money line: <span class="n">l=18, m=3, n=12</span></div><div class="body"><div class="sub"><div class="sublabel">Health &amp; Body</div><p>This is the year your body starts keeping the receipts, Asha. Arcanum 20 as a year sits on the spine, the nervous system, and the ears — places where ancestral patterns lodge themselves physically. You&#x27;ll notice tension in your upper back and neck first, especially when family obligations pile up or old guilt resurfaces. The phone calls you&#x27;ve been avoiding? They&#x27;ll show up as headaches. The resentments you&#x27;ve swallowed? Jaw clenching, TMJ flare-ups. This arcanum doesn&#x27;t let you hide stress anymore. The gift: your body becomes a truthteller. Listen when fatigue hits suddenly — it&#x27;s not random, it&#x27;s your system saying &quot;this situation is draining you at the root.&quot; Get your hearing checked if there&#x27;s any persistent ringing or pressure; 20-years surface auditory weirdness tied to &quot;not wanting to hear&quot; certain truths. What helps: anything that works the ancestral line — acupuncture along the bladder meridian, somatic therapy, even visiting your grandmother&#x27;s grave. This is a year to honor the body as a site of memory, not just a vehicle. See a doctor if back pain becomes chronic or if you&#x27;re getting vertigo — don&#x27;t write it off as stress. You&#x27;re clearing something old, but you don&#x27;t have to do it alone.</p></div><div class="sub"><div class="sublabel">Work &amp; Money</div><p>Judgement opens the legacy door. This is not a hustle year — it&#x27;s a *calling* year. Your money channel sits at 5 (The Hierophant), which means you earn through teaching, systems, and established mastery. This year, arcanum 20 asks: are you building something that lasts beyond you, or are you just clocking in? Expect one major professional reckoning around August or September — a project ends, a role shifts, or someone from your past resurfaces with an offer that makes you reconsider everything. The opportunity here is generational: stepping into work that serves a lineage (literal or chosen), becoming the mentor you needed, or finally monetizing the thing your mother told you was impractical. Your money line — 18 (intuition), 3 (creativity), 12 (the pause) — says income flows when you trust your gut and stop forcing. The trap this year is staying in work out of guilt or family expectation. Arcanum 20 will burn that bridge for you if you won&#x27;t do it yourself. Watch for sudden resignations, industries crumbling, or bosses retiring — these aren&#x27;t disasters, they&#x27;re releases. If your karmic tail is Pride (6-5-17), the test this year is whether you can receive help without resentment. Someone will offer you a door; don&#x27;t refuse it because you think you should&#x27;ve opened it yourself. Real legacy is built in collaboration, not isolation.</p></div><div class="sub"><div class="sublabel">Love &amp; Relationships</div><p>The partner arcanum is 6, and so is your love block, which means this year will clarify what you&#x27;ve been circling. Arcanum 20 as a year forces the &quot;are we in or out?&quot; conversation — no more ambiguous situationships, no more &quot;let&#x27;s see where it goes.&quot; If you&#x27;re partnered, expect a deepening that feels ancestral: meeting each other&#x27;s families in new ways, talking about kids or legacy, seeing whether your values actually align when the pretty phase is over. If you&#x27;re single, this is a homecoming year — the person who shows up will feel like someone you&#x27;ve known before, because arcanum 6 attracts through familiarity and shared values. But here&#x27;s the edge: your love line ends in 18 (The Moon), which means there&#x27;s a tendency to idealize or project. Arcanum 20 won&#x27;t let that fly. You&#x27;ll see your partner — or potential partner — clearly this year, shadows and all, and you&#x27;ll have to decide if you love the real person or just the idea. The love block at 6 says you freeze when it&#x27;s time to choose; this year will force the choice. Late spring and early winter are the pivot windows — someone leaves, someone returns, or you finally say the thing you&#x27;ve been holding. If the relationship survives this year, it&#x27;s real. If it doesn&#x27;t, you&#x27;ll know by your next birthday, and you&#x27;ll be grateful for the clarity.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>High Road vs. Shadow</h2><div class="numbers"><span class="n">20 (Judgement (Awakening))</span> · arcanum: <span class="n">20 (Judgement (Awakening))</span> · light: <span class="n">calling, ancestry, legacy, generational healing, the lineage awakens</span> · shadow: <span class="n">carrying family debts, holding grudges, self-condemnation, guilt</span></div><div class="body"><div class="sub"><div class="sublabel">High Road</div><p>You&#x27;re being called home, Asha — not to a place, but to a lineage. The high road this year looks like answering that call without shame. You stop carrying your family&#x27;s unspoken debts and start asking the questions no one else will: *Why did we do it this way? What stops here with me?* Concrete signs you&#x27;re aligned: you have at least one raw, honest conversation with a parent or elder that changes the temperature of the whole line. You feel the pull to document something — stories, recipes, photos, the family mythology — and you actually do it. You stop apologising for gifts they didn&#x27;t understand. By your 33rd birthday, you&#x27;re standing in a different relationship to your name. The guilt is gone. What you carry forward is *choice* — the best of what came before you, and the freedom to leave the rest in the ground where it belongs.</p></div><div class="sub"><div class="sublabel">Shadow Track</div><p>The shadow this year is the wound dressed up as loyalty. You stay silent because &quot;that&#x27;s just how they are.&quot; You carry their shame, their unpaid debts, their compromises, and call it love. Diagnostic signs: you feel an old family grievance flare up and you *take a side* instead of seeing it clearly. You dream about a relative and wake up heavy, but you never talk about it. You refuse a professional opportunity or personal boundary because &quot;they sacrificed so much for me&quot; — martyr logic. Self-condemnation becomes your daily companion: *I should be more grateful. I should fix this. I&#x27;m the problem.* The shadow version of this year leaves you on your 33rd birthday more entangled than you were at 32, the resentment metastasising quietly under the surface, and the lineage no clearer for your silence.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Year, Phase by Phase</h2><div class="numbers"><span class="n">20 (Judgement (Awakening))</span> · Q1 (June–August): <span class="n">phase of the year arcanum</span> · Q2 (September–November): <span class="n">phase of the year arcanum</span> · Q3 (December–February): <span class="n">phase of the year arcanum</span> · Q4 (March–May): <span class="n">phase of the year arcanum</span></div><div class="body"><div class="sub"><div class="sublabel">Quarter 1</div><p>June through August arrives like a door opening onto the ancestral hall. The year&#x27;s energy is Judgement — awakening, calling, lineage — and the first three months after your June birthday bring the signal. Something in you stirs to remember: who you came from, what you came here to do, what debts or gifts run through the bloodline. This is when the call gets loud. You might dream about dead relatives. You might suddenly understand a family pattern that&#x27;s been running on autopsy for decades. Work and money feel less urgent; your attention turns inward and backward. Health-wise, old symptoms resurface — not to destroy you, but to be finally named and released. Relationships ask: are you living the life your ancestors needed you to live, or the one they couldn&#x27;t? The answer matters more than you think. Use these months to listen. The awakening doesn&#x27;t wait for you to be ready.</p></div><div class="sub"><div class="sublabel">Quarter 2</div><p>September through November is when the lessons land with weight. The awakening deepens into accountability. By now you know what the call is asking of you — career pivot, family reckoning, creative rebirth — and Q2 is where you start to move on it or resist it. This is the quarter of tests. Someone from the past reappears. A professional opportunity asks you to step into a role you&#x27;ve been avoiding. Your Pride karmic tail (the old arrogance, the inability to appreciate what others do for you) gets triggered hard. Watch for moments when you want to dismiss help or refuse gratitude. The year won&#x27;t let you get away with it. Money and work stabilize if you&#x27;re willing to mentor or be mentored — your 5 in the money channel thrives on lineage exchange. Love asks: are you choosing partners who reflect your calling, or distractions who keep you small? This quarter sorts the real from the noise.</p></div><div class="sub"><div class="sublabel">Quarter 3</div><p>December through February is the crest. The hardest, most concentrated stretch of the year. Judgement at peak intensity means something has to die so the awakening can complete. This is the season of the reckoning. A relationship ends or transforms beyond recognition. A job you&#x27;ve been clinging to becomes untenable. The family wound you&#x27;ve been circling finally cracks open — and you realize it was never yours to carry alone. Your body might demand a pause: burnout, illness, fatigue that won&#x27;t lift until you stop running. The 7 in your centre (expansion, momentum, victory) hates this. You&#x27;re built to move forward, not surrender. But Judgement asks you to stop conquering and start listening. The Moon in your love line stirs up old fears, projections, delusions about what intimacy should look like. Let them surface. This quarter is not about fixing; it&#x27;s about witnessing. The breakthrough comes when you stop forcing it.</p></div><div class="sub"><div class="sublabel">Quarter 4</div><p>March through May is the harvest and the close. By now the year&#x27;s lesson has worked its way through you. You&#x27;re different. The final three months are about integration and completion — taking what the awakening taught you and building the next chapter on that ground. Work opportunities that align with your actual calling (not the one you inherited or defaulted into) start to appear. Money flows more easily because you&#x27;ve stopped trying to prove something. Your Lovers talent — the gift of clear-eyed choice — finally has room to breathe. You&#x27;re choosing from the heart, not from fear or Pride. Relationships either deepen into real partnership or release cleanly, no residue. Health stabilizes; the body trusts you again. This is the quarter where you see what you&#x27;re carrying into 33. The ancestors are quiet now. They&#x27;ve said what they came to say. What you do with it is yours.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>Where This Year Sits in the Decade</h2><div class="numbers"><span class="n">20 (Judgement (Awakening))</span> · age 31: <span class="n">20 (Judgement (Awakening))</span> · age 32: <span class="n">20 (Judgement (Awakening))</span> · age 33: <span class="n">9 (The Hermit)</span> · decade corner (age 30): <span class="n">11 (Strength)</span> · decade midpoint: <span class="n">16 (The Tower)</span></div><div class="body"><p>You&#x27;re in the second year of the reckoning. Last year — 31 — was Judgement, the first wave of ancestral awakening and the call to account for the lineage. This year — 32 — it&#x27;s Judgement again. The pattern doubles down. The question you were asked at 31 doesn&#x27;t go away; it deepens. You&#x27;re being held in the fire a second year. Legacy, bloodline, family debt, spiritual inheritance — whatever you started to see last year now demands conscious action. This isn&#x27;t a year you coast through. It&#x27;s the year you answer.</p><p>At 33, you step into The Hermit. That&#x27;s a retreat into specialized mastery, solitude, and focused depth. The social noise cuts off. The work becomes internal. But you don&#x27;t get there without completing what Judgement is asking of you now. This year is the payment; next year is the quiet that follows.</p><p>The decade corner that anchors all of this is Strength — the 11 at age 30. That means the entire arc from 30 to 40 is about learning to hold power without force, to tame your inner chaos with soft courage, to lead from sensual confidence rather than brute will. Judgement doubling at 31 and 32 is part of that curriculum. You can&#x27;t own your Strength until you&#x27;ve faced what the ancestors left unresolved. This is a STEP year — the decade corner and the year energy agree. You&#x27;re building exactly what the decade asked you to build. It&#x27;s just harder than you thought it would be.</p></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Move &amp; The Trap</h2><div class="numbers"><span class="n">20 (Judgement (Awakening))</span> · year arcanum: <span class="n">20 (Judgement (Awakening))</span></div><div class="body"><div class="sub"><div class="sublabel">The Move</div><p>Asha, you need to publicly acknowledge someone who cleared the path for you. That&#x27;s it. That&#x27;s the move. This is a Judgement year — calling, legacy, generational reckoning — and your Pride karmic tail has spent lifetimes refusing to see how much others contributed to your wins. You&#x27;re brilliant at expansion (the 7), magnetic in relationships (the double-6 love line), but the 18-3-12 money line shows your real creative abundance comes through others&#x27; unseen support. Name them. Thank them. Publicly. Whether it&#x27;s a mentor, a partner who held the fort, or your mother&#x27;s silent sacrifice — this year will not fully open until you do. The 20 doesn&#x27;t reward solo heroes. It rewards those who honor the lineage. Make the acknowledgment specific, not a vague Instagram caption. Real gratitude breaks the Pride trap and calls in the legacy work waiting for you.</p></div><div class="sub"><div class="sublabel">The Trap</div><p>The trap is thinking the call is about YOU proving something. It&#x27;s not. The 20 is about becoming the bridge — the one who passes the knowledge, the beauty, the structure forward. If you spend this year chasing validation or building another monument to your own expansion, you&#x27;ll plateau. The double-6 in love wants to be chosen; the 18-3 wants to birth something; but if it&#x27;s all performance and no lineage work, the 12 at the end of your money line will hang you in suspended frustration. Stop making it about being impressive. Make it about being useful to what comes after you. You&#x27;re not the star this year — you&#x27;re the one who builds the stage for the next generation and finally admits you didn&#x27;t do it alone.</p></div></div></section>
+
+  <footer class="outro">
+    The triad names the year. Walk it on the high road and the third arcanum is what you carry into the next birthday.
+  </footer>
+</div>
+</body>
+</html>
