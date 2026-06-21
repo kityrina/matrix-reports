@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Arianna — Matrix of Destiny</title>
+<style>
+:root {
+  --bg: #0B0710;
+  --fg: #F5F1F0;
+  --muted: #9C8FA6;
+  --gold: #E8C77E;
+  --pink: #FF4D7E;
+  --rule: #2a1f33;
+  --paid: rgba(232,199,126,0.18);
+}
+* { box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  margin: 0; padding: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 880px; margin: 0 auto; padding: 56px 28px 96px; }
+
+header.cover { text-align: center; padding: 28px 0 8px; border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+header.cover .brand { letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); font-size: 11px; margin-bottom: 18px; }
+header.cover h1 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 44px; margin: 0 0 6px; letter-spacing: 0.02em; }
+header.cover .subtitle { color: var(--muted); font-style: italic; font-size: 16px; }
+
+.chart-wrap {
+  background: linear-gradient(180deg,#14091f 0%,#0B0710 100%);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 28px 18px 12px;
+  margin: 32px 0 28px;
+}
+.chart-meta {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  margin-top: 18px;
+  font-size: 13px;
+}
+.chart-meta .cell { background: rgba(255,255,255,0.025); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; }
+.chart-meta .label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; margin-bottom: 4px; }
+.chart-meta .val { color: var(--fg); font-size: 14px; }
+.chart-meta .val .arc { color: var(--gold); }
+
+.report-intro {
+  font-size: 16px; line-height: 1.7;
+  background: rgba(255,77,126,0.05);
+  border-left: 2px solid var(--pink);
+  padding: 18px 22px; margin: 28px 0 8px;
+  font-style: italic;
+}
+
+section.aspect { padding: 36px 0; border-bottom: 1px solid var(--rule); }
+section.aspect:last-child { border-bottom: none; }
+section.aspect .eyebrow { color: var(--gold); letter-spacing: 0.28em; text-transform: uppercase; font-size: 11px; margin-bottom: 8px; }
+section.aspect h2 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 30px; margin: 0 0 6px; letter-spacing: 0.01em; }
+section.aspect .numbers { color: var(--muted); font-size: 12px; margin-bottom: 22px; font-style: italic; }
+section.aspect .numbers .n { color: var(--gold); font-style: normal; }
+section.aspect .body { font-size: 16.5px; line-height: 1.78; color: #EDE6E2; }
+section.aspect .body p { margin: 0 0 1.05em; }
+
+.sub { margin: 24px 0 18px; }
+.sub .sublabel {
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.indicators { padding-left: 20px; margin: 8px 0 16px; }
+.indicators li { margin-bottom: 4px; }
+.paid-box {
+  background: var(--paid);
+  border: 1px dashed var(--gold);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 14px;
+}
+.paid-box strong { color: var(--gold); font-style: normal; }
+
+.pyramid { margin: 16px 0 24px; display: flex; flex-direction: column; gap: 14px; }
+.pyramid .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; align-items: center; }
+.pyramid .row.alone { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+.pyramid .cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+}
+.pyramid .cell .pl { color: var(--muted); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+.pyramid .cell .pn { color: var(--gold); font-size: 16px; font-weight: 600; }
+.pyramid .cell .pa { color: var(--fg); font-size: 12px; font-style: italic; margin-top: 2px; }
+.pyramid .cell.sum { background: rgba(255,77,126,0.08); border-color: var(--pink); }
+
+.program-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 14px 0;
+}
+.program-card h3 { margin: 0 0 4px; font-family: "Didot",Georgia,serif; font-size: 20px; font-weight: 400; color: var(--gold); }
+.program-card .triple { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
+.program-card .strengths { font-size: 15px; line-height: 1.6; margin-bottom: 10px; }
+
+footer.outro {
+  margin-top: 56px; padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  text-align: center; color: var(--muted);
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+
+/* Floating download-PDF button (hidden when printing). */
+.pdf-btn {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--pink); color: #0B0710;
+  border: none; border-radius: 999px;
+  padding: 14px 22px;
+  font-family: Georgia, serif; font-size: 14px; font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 100;
+  transition: transform 0.15s, filter 0.15s;
+}
+.pdf-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.pdf-btn::before { content: "↓ "; margin-right: 4px; }
+
+/* Floating "Home" button — visible only when served from localhost, never
+   on a published copy and never in print. JS toggles display at load. */
+.home-btn {
+  position: fixed;
+  top: 24px; left: 24px;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: Georgia, serif; font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 100;
+  display: none;                /* hidden by default */
+  transition: all 0.15s;
+}
+.home-btn:hover { background: rgba(232,199,126,0.1); transform: translateY(-1px); }
+.home-btn::before { content: "← "; margin-right: 2px; opacity: 0.7; }
+
+/* ============================================================ */
+/* PRINT / PDF — light magazine-style theme.                    */
+/* Triggered by browser Print dialog (Ctrl+P / Cmd+P).          */
+/* ============================================================ */
+
+@page {
+  size: A4;
+  margin: 24mm 22mm 26mm 22mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: Georgia, serif;
+    font-size: 9pt;
+    color: #8a7a5b;
+  }
+  @top-right {
+    content: string(report-title);
+    font-family: Georgia, serif;
+    font-size: 8pt;
+    color: #b5a682;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+@page :first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+@media print {
+  :root {
+    --bg: #FBF7F2;
+    --fg: #1a1320;
+    --muted: #7a6e5e;
+    --gold: #9a7e3a;
+    --pink: #b53e64;
+    --rule: #d9cdb8;
+  }
+  html, body { background: #FBF7F2 !important; color: #1a1320 !important; }
+  body { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  /* Hide on-screen-only controls */
+  .pdf-btn { display: none !important; }
+  .home-btn { display: none !important; }
+
+  /* String for header — set from cover h1 */
+  header.cover h1 { string-set: report-title content(); }
+
+  .wrap { max-width: 100%; padding: 0; margin: 0; }
+
+  /* --- COVER PAGE (full-bleed) --- */
+  header.cover {
+    page: cover;
+    height: 297mm;
+    margin: 0;
+    padding: 40mm 20mm 30mm;
+    border: none;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 38%, rgba(232,199,126,0.18), transparent 55%),
+      linear-gradient(180deg, #FBF7F2, #F0E7D6 70%, #E8DDC4);
+    box-sizing: border-box;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+  }
+  header.cover .brand {
+    color: #9a7e3a !important;
+    font-size: 9pt; letter-spacing: 0.45em;
+    margin-bottom: 24mm;
+  }
+  header.cover h1 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 56pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 8mm; letter-spacing: 0.01em;
+  }
+  header.cover .subtitle {
+    color: #5a4e3d !important; font-style: italic;
+    font-size: 13pt; margin-bottom: 18mm;
+  }
+
+  /* Decorative cover ornament */
+  header.cover::after {
+    content: "✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 18pt;
+    margin-top: auto;
+    margin-bottom: 8mm;
+    opacity: 0.7;
+  }
+
+  /* --- MATRIX CHART --- on its own page, light theme --- */
+  .chart-wrap {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin: 0 0 10mm;
+    page-break-before: avoid;
+    page-break-after: always;
+    break-after: page;
+  }
+  .chart-wrap svg { max-width: 150mm !important; margin: 0 auto !important; display: block !important; }
+
+  /* Repaint SVG fills for print readability */
+  .chart-wrap svg circle[fill="#0B0710"] { fill: #FBF7F2 !important; }
+  .chart-wrap svg text[fill="#F5F1F0"] { fill: #1a1320 !important; }
+  .chart-wrap svg text[fill="#E8C77E"] { fill: #9a7e3a !important; }
+  .chart-wrap svg polygon[stroke="#E8C77E"] { stroke: #9a7e3a !important; }
+  .chart-wrap svg line[stroke="#9C8FA6"] { stroke: #7a6e5e !important; }
+  .chart-wrap svg circle[fill="url(#centerGlow)"] { fill: rgba(181,62,100,0.10) !important; }
+
+  /* Chart meta — softer table for print */
+  .chart-meta {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6mm !important; margin-top: 8mm !important;
+    page-break-inside: avoid;
+  }
+  .chart-meta .cell {
+    background: transparent !important;
+    border: 1px solid #d9cdb8 !important;
+    color: #2a1f33 !important;
+    padding: 6mm 5mm !important;
+  }
+  .chart-meta .label { color: #7a6e5e !important; }
+  .chart-meta .val .arc { color: #9a7e3a !important; }
+
+  /* --- INTRO --- */
+  .report-intro {
+    background: transparent !important;
+    border: none !important;
+    border-top: 1px solid #d9cdb8 !important;
+    border-bottom: 1px solid #d9cdb8 !important;
+    margin: 12mm 0 !important;
+    padding: 8mm 6mm !important;
+    color: #3a2e23 !important;
+    font-style: italic;
+    text-align: center;
+    font-size: 12pt;
+    page-break-inside: avoid;
+  }
+
+  /* --- ASPECT SECTIONS --- */
+  section.aspect {
+    page-break-before: always;
+    break-before: page;
+    border-bottom: none !important;
+    padding: 0 4mm 6mm !important;     /* extra inner breathing room */
+  }
+  section.aspect:first-of-type { page-break-before: auto; break-before: auto; }
+  section.aspect .eyebrow {
+    color: #9a7e3a !important; font-size: 8pt; letter-spacing: 0.34em;
+    margin-bottom: 4mm;
+  }
+  section.aspect h2 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 32pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 3mm;
+  }
+  section.aspect h2::after {
+    content: "";
+    display: block;
+    width: 30mm;
+    height: 1px;
+    background: #9a7e3a;
+    margin: 4mm 0;
+    opacity: 0.6;
+  }
+  section.aspect .numbers {
+    color: #7a6e5e !important; font-size: 9pt;
+    margin-bottom: 6mm;
+    font-style: italic;
+  }
+  section.aspect .numbers .n { color: #9a7e3a !important; }
+  section.aspect .body {
+    font-size: 11pt; line-height: 1.6;
+    color: #1a1320 !important;
+  }
+  section.aspect .body p { margin: 0 0 3mm; orphans: 3; widows: 3; }
+  section.aspect .body p:first-of-type::first-letter {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 28pt; line-height: 0.85;
+    color: #9a7e3a;
+    float: left;
+    margin: 2pt 4pt 0 0;
+  }
+
+  /* --- SUB-BLOCKS --- */
+  .sub { margin: 6mm 0 4mm; page-break-inside: avoid; }
+  .sub .sublabel {
+    color: #9a7e3a !important;
+    border-bottom: 1px solid #d9cdb8;
+    padding-bottom: 1mm; margin-bottom: 3mm;
+    font-size: 8.5pt; letter-spacing: 0.22em;
+  }
+
+  /* Indicators */
+  .indicators li { margin-bottom: 1.5mm; }
+
+  /* Pyramid (Destiny) */
+  .pyramid { page-break-inside: avoid; margin: 4mm 0 8mm; }
+  .pyramid .cell {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+  }
+  .pyramid .cell.sum { background: #F6E2E0 !important; border-color: #b53e64 !important; }
+  .pyramid .cell .pn { color: #9a7e3a !important; }
+  .pyramid .cell .pa { color: #2a1f33 !important; }
+
+  /* Program cards */
+  .program-card {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+    border-radius: 4px;
+    padding: 5mm 6mm;
+    margin: 4mm 0;
+    page-break-inside: avoid;
+  }
+  .program-card h3 {
+    color: #9a7e3a !important;
+    font-family: "Didot",Georgia,serif;
+    font-size: 14pt;
+  }
+  .program-card .triple { color: #7a6e5e !important; }
+
+  /* Footer outro */
+  footer.outro {
+    page-break-before: always;
+    break-before: page;
+    border-top: none !important;
+    text-align: center;
+    color: #7a6e5e !important;
+    font-size: 8.5pt; letter-spacing: 0.34em;
+    margin-top: 30mm;
+    padding-top: 0;
+  }
+  footer.outro::before {
+    content: "✦ ✦ ✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 14pt;
+    margin-bottom: 8mm;
+    opacity: 0.6;
+    letter-spacing: 0.6em;
+  }
+}
+
+.three-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 0 0 22px;
+}
+.three-charts .partner {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 14px 12px 6px;
+}
+.three-charts .partner .who {
+  text-align: center;
+  font-family: "Didot",Georgia,serif;
+  color: var(--gold);
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.three-charts .partner .dob {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+.three-charts .combined {
+  grid-column: 1 / -1;
+  background: linear-gradient(180deg, rgba(255,77,126,0.05), rgba(232,199,126,0.03));
+  border: 1px solid var(--pink);
+  border-radius: 12px;
+  padding: 18px 14px 8px;
+}
+.three-charts .combined .who {
+  color: var(--pink);
+  font-size: 20px;
+  letter-spacing: 0.06em;
+}
+.three-charts .combined .who::before { content: "✦ "; opacity: 0.7; }
+.three-charts .combined .who::after  { content: " ✦"; opacity: 0.7; }
+@media print {
+  .three-charts { grid-template-columns: 1fr 1fr; gap: 8mm; page-break-inside: avoid; }
+  .three-charts .partner { background: transparent !important; border-color: #d9cdb8 !important; }
+  .three-charts .partner .who { color: #9a7e3a !important; }
+  .three-charts .combined { background: #F8EFE6 !important; border-color: #b53e64 !important; page-break-inside: avoid; }
+  .three-charts .combined .who { color: #b53e64 !important; }
+}
+</style>
+</head>
+<body>
+<button class="home-btn" onclick="window.location.href='/'" title="Back to the generator (hidden on published copies clients see)">Home</button>
+<button class="pdf-btn" onclick="window.print()" title="Save this report as PDF (your browser will let you choose 'Save as PDF' in the print dialog)">Download PDF</button>
+<script>
+  // Show the Home button on the generator app (localhost and the private Render
+  // URL). Hide it on published copies clients see (GitHub Pages, short-link host).
+  (function() {
+    var h = window.location.hostname;
+    var isPublic = h.endsWith("github.io") || h === "hotslavicwitch.com" || h === "www.hotslavicwitch.com";
+    if (!isPublic) {
+      document.querySelector(".home-btn").style.display = "inline-block";
+    }
+  })();
+</script>
+<div class="wrap">
+  <header class="cover">
+    <div class="brand">Hot Slavic Witch · Matrix of Destiny</div>
+    <h1>Arianna</h1>
+    <div class="subtitle">03.08.2004 · Female · reading for ages 21, 22</div>
+  </header>
+
+  <div class="chart-wrap">
+    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Matrix of Destiny chart" style="width:100%;max-width:680px;display:block;margin:0 auto;"><defs><radialGradient id="centerGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF4D7E" stop-opacity="0.28"/><stop offset="100%" stop-color="#FF4D7E" stop-opacity="0"/></radialGradient><marker id="arrMale" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#9b87f5"/></marker><marker id="arrFem" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#FF4D7E"/></marker></defs><circle cx="140" cy="140" r="105" fill="url(#centerGlow)"/><polygon points="34.42,145.14 140.00,35.00 245.00,145.14 140.00,254.00" fill="none" stroke="#E8C77E" stroke-width="0.9" opacity="0.85"/><polygon points="65.21,66.93 214.38,66.93 214.38,221.34 65.29,221.00" fill="none" stroke="#E8C77E" stroke-width="0.9" opacity="0.85"/><line x1="34.42" y1="145.14" x2="245.00" y2="145.14" stroke="#9C8FA6" stroke-width="0.5" opacity="0.4"/><line x1="140.00" y1="35.00" x2="140.00" y2="254.00" stroke="#9C8FA6" stroke-width="0.5" opacity="0.4"/><line x1="65.21" y1="66.93" x2="214.38" y2="221.34" stroke="#9b87f5" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrMale)"/><line x1="214.38" y1="66.93" x2="65.29" y2="221.00" stroke="#FF4D7E" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrFem)"/><circle cx="174.88" cy="180.71" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="174.88" y="182.11" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">19</text><circle cx="156.99" cy="199.57" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="156.99" y="200.97" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">7</text><circle cx="192.62" cy="161.86" r="3.6" fill="#0B0710" stroke="#E8C77E" stroke-width="0.6"/><text x="192.62" y="163.26" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#F5F1F0">5</text><circle cx="78.14" cy="81.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="78.14" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">9</text><circle cx="89.45" cy="93.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="89.45" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">16</text><circle cx="200.82" cy="81.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="200.82" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">6</text><circle cx="190.30" cy="93.71" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="190.30" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">19</text><circle cx="79.80" cy="208.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="79.80" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">9</text><circle cx="90.69" cy="196.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="90.69" y="198.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">7</text><circle cx="200.41" cy="208.57" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="200.41" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">15</text><circle cx="189.89" cy="195.68" r="4.8" fill="#0B0710" stroke="#F5F1F0" stroke-width="0.6"/><text x="189.89" y="197.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#F5F1F0">10</text><circle cx="103.23" cy="145.14" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="103.23" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#0B0710">17</text><circle cx="140.00" cy="104.43" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="140.00" y="106.18" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#0B0710">22</text><circle cx="140.00" cy="56.43" r="5.5" fill="#4A6FE3" stroke="#E8C77E" stroke-width="0.6"/><text x="140.00" y="58.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">5</text><circle cx="140.00" cy="73.14" r="5.5" fill="#5BC0DE" stroke="#E8C77E" stroke-width="0.6"/><text x="140.00" y="75.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">15</text><circle cx="139.46" cy="216.71" r="5.5" fill="#F0A04B" stroke="#E8C77E" stroke-width="0.6"/><text x="139.46" y="218.81" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">6</text><circle cx="139.59" cy="233.43" r="5.5" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="139.59" y="235.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#0B0710">5</text><circle cx="70.23" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="70.23" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">10</text><circle cx="54.27" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="54.27" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">13</text><circle cx="208.78" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="208.78" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">13</text><circle cx="224.74" cy="145.14" r="5.5" fill="#1a1320" stroke="#E8C77E" stroke-width="0.6"/><text x="224.74" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#F5F1F0">19</text><circle cx="161.13" cy="143.43" r="5" fill="#FF4D7E" stroke="#FF4D7E" stroke-width="0.6"/><text x="161.13" y="145.35" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.5" fill="#0B0710">5</text><circle cx="173.56" cy="145.14" r="4.4" fill="#0B0710" stroke="#FF7BA0" stroke-width="0.6"/><text x="173.56" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#F5F1F0">12</text><circle cx="34.42" cy="145.14" r="10" fill="#8E5BD9" stroke="#8E5BD9" stroke-width="0.6"/><text x="34.42" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">3</text><circle cx="140.00" cy="35.00" r="10" fill="#8E5BD9" stroke="#8E5BD9" stroke-width="0.6"/><text x="140.00" y="38.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">8</text><circle cx="245.00" cy="145.14" r="10" fill="#E74C3C" stroke="#E74C3C" stroke-width="0.6"/><text x="245.00" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">6</text><circle cx="140.00" cy="254.00" r="10" fill="#E74C3C" stroke="#E74C3C" stroke-width="0.6"/><text x="140.00" y="257.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#F5F1F0">17</text><circle cx="65.21" cy="66.93" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="65.21" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">11</text><circle cx="214.38" cy="66.93" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="214.38" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">14</text><circle cx="214.38" cy="221.34" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="214.38" y="224.84" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">5</text><circle cx="65.29" cy="221.00" r="10" fill="#E8C77E" stroke="#E8C77E" stroke-width="0.6"/><text x="65.29" y="224.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#0B0710">20</text><circle cx="140.00" cy="140.00" r="12" fill="#F5C842" stroke="#F5C842" stroke-width="0.6"/><text x="140.00" y="144.20" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="12" fill="#0B0710">7</text></svg>
+    <div class="chart-meta"><div class="cell"><div class="label">Soul / Destiny</div><div class="val"><span class="arc">7 (The Chariot)</span></div></div><div class="cell"><div class="label">Money channel</div><div class="val"><span class="arc">6 (The Lovers)</span></div></div><div class="cell"><div class="label">Talent</div><div class="val"><span class="arc">8 (Justice)</span></div></div><div class="cell"><div class="label">Heart&#x27;s desire</div><div class="val"><span class="arc">5 (The Hierophant)</span></div></div><div class="cell"><div class="label">Karmic tail</div><div class="val"><span class="arc">6-5-17 — Pride</span></div></div><div class="cell"><div class="label">Year(s) forecast</div><div class="val"><span class="arc">age 21: 11 (Strength) · age 22: 11 (Strength)</span></div></div></div>
+  </div>
+
+  <div class="report-intro">This is your reading, Arianna. Read it slowly. The matrix doesn&#x27;t predict your future — it names the pattern you were born into. What you do with the pattern is the only thing that ever was, or will be, up to you.</div>
+
+  <section class="aspect"><div class="eyebrow">Aspect</div><h2>Personal Qualities</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · core (e): <span class="n">7 (The Chariot)</span> · portrait (a): <span class="n">3 (The Empress)</span> · talent (b): <span class="n">8 (Justice)</span></div><div class="body"><div class="sub"><div class="sublabel">Positive State</div><p>When you&#x27;re running clean, Arianna, you combine the 3&#x27;s abundant ease with the 8&#x27;s surgical clarity — and it&#x27;s magnetic. You walk into a room and people relax; there&#x27;s a warmth that doesn&#x27;t try, a generosity that isn&#x27;t performance. You see what&#x27;s fair and what isn&#x27;t without breaking a sweat, and you&#x27;ll say it out loud — kindly, but without apology. You create beauty and structure at the same time: the spreadsheet that actually makes sense, the argument that lands because it&#x27;s both truthful and graceful. People trust you because you don&#x27;t need to prove anything. You give from overflow, you call out imbalance, and you do both like breathing.</p></div><div class="sub"><div class="sublabel">Negative State</div><p>Burnt out, you turn into a resentful scorekeeper wrapped in velvet. The 3 goes bitter — you&#x27;re still giving, but now you&#x27;re counting every ounce and waiting for someone to notice. The 8 sharpens into judgment: everyone&#x27;s wrong, you&#x27;re the only one who sees it, and nobody appreciates how hard you work to hold the world together. You withdraw affection like a punishment. You smile while you ice people out. The abundance curdles into scarcity-mothering; the justice becomes cold verdicts delivered from a distance. You know you&#x27;re doing it, and you hate yourself for it, which makes it worse.</p></div><div class="sub"><div class="sublabel">Social</div><p>The 3 is your social signature — people read you as nurturing, capable, artistically attuned, maybe a little untouchable in your self-sufficiency. You don&#x27;t perform warmth; it&#x27;s ambient. First impressions: earth mother with edges, someone who has her life together and might help you get yours sorted if you ask nicely. Underneath, the 7 is driving — you&#x27;re expanding, building, always three steps ahead — but socially, it&#x27;s the Empress they see first. You make people feel safe and slightly inadequate at the same time.</p></div><div class="sub"><div class="sublabel">Strengths</div><p>Your talent 8 gives you an uncanny ability to assess a situation and extract the truth without drama — you&#x27;re the one people come to when they need clarity, not comfort. The 3 means you can build and sustain: relationships, projects, environments — you&#x27;re a natural cultivator. The 7 at your core ensures you don&#x27;t plateau; you&#x27;re always moving, expanding the empire, refusing to stay small. Together, they make you someone who can grow something beautiful *and* make the hard calls to protect it.</p></div><div class="sub"><div class="sublabel">Weaknesses</div><p>The 3 can make you over-give until you&#x27;re silently furious, expecting people to read your exhaustion and rescue you — they won&#x27;t. The 8 at its worst makes you rigid: so sure you&#x27;re right that you stop listening, and the judgment lands like a gavel. The 7 drives you relentlessly forward, but you can bulldoze your own body and burn out trying to prove you don&#x27;t need rest. You hate asking for help. You&#x27;d rather collapse than admit you can&#x27;t carry it all alone.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Previous Life</h2><div class="numbers"><span class="n">17 (The Star)</span> · j (close to centre): <span class="n">6 (The Lovers)</span> · r (close to cardinal): <span class="n">5 (The Hierophant)</span> · d (bottom cardinal): <span class="n">17 (The Star)</span></div><div class="body"><h3 style="font-family:Didot,Georgia,serif;font-size:22px;font-weight:400;color:var(--gold);margin:8px 0 14px;">Pride <span style="color:var(--muted);font-size:14px;">(6-5-17)</span></h3><p>Your past life was Pride. You were someone who stood at the centre — radiant, admired, capable — and knew it. The 6 (Lovers) says you were charismatic, magnetically beautiful, chosen. The 5 (Hierophant) gave you institutional power, title, or social rank. You might have been a priestess, a matriarch, a queen&#x27;s favourite, a woman whose beauty and pedigree opened doors that stayed shut for others. And the 17 (Star) — you were seen, celebrated, maybe even worshipped. But here&#x27;s the edge: you stopped noticing the scaffolding. The people who dressed you, protected you, stood in your shadow and made your shine possible — you took them for granted. It wasn&#x27;t malice. It was blindness born of altitude. You believed your position was proof of your superiority, not a collaboration you were lucky to be part of.</p><p>This lifetime, Arianna, the ghost shows up as a chronic inability to see or honour what people do for you. When someone helps, your first impulse is to minimize it or assume you could have handled it yourself. You dismiss gestures of care as obligatory, not generous. You unconsciously screen for who&#x27;s *useful* rather than who&#x27;s kind. And in relationships — romantic, familial, professional — you expect the red carpet without naming it. You don&#x27;t ask; you assume. And when people pull back or stop giving, you&#x27;re genuinely confused. The 17 comet karma keeps you visible, so there&#x27;s often someone ready to step in, which only reinforces the pattern. You shine easily. What you miss is that the light needs tending by more hands than your own.</p><p>You came back to learn gratitude — not as performance, but as humility that rewires the nervous system. The work starts with noticing. When someone does something for you, pause. Say thank you and mean it. Write it down if you have to. The 5 asks you to apprentice yourself to reciprocity: trade the throne for the circle. Your beauty and magnetism aren&#x27;t going anywhere, but this time they&#x27;re not the point. The point is learning to honour the people who help you rise, and to see yourself as part of the ecosystem, not above it.</p></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Scenario of Life</h2><div class="numbers"><span class="n">21 (The World)</span> · karmic tail: <span class="n">6-5-17</span> · tail archetype: <span class="n">Pride</span> · soul centre: <span class="n">7 (The Chariot)</span> · comet (d): <span class="n">17 (The Star)</span></div><div class="body"><h3 style="font-family:Didot,Georgia,serif;font-size:22px;font-weight:400;color:var(--gold);margin:8px 0 14px;">The Unimpressed Conqueror</h3><p>Arianna, you run on achievement and expansion — the 7 (Chariot) at your core means you are *always* moving. But here&#x27;s the rub: because you&#x27;ve carried Pride through lifetimes (6-5-17), you&#x27;ve developed a finely tuned inability to recognise when someone else&#x27;s effort made your momentum possible. You see the win, not the scaffolding. You nod politely when someone helps, then immediately pivot to the next conquest, leaving them feeling invisible. It&#x27;s not malice — it&#x27;s a blind spot the size of a stadium. You genuinely don&#x27;t *see* the thousand small gestures that keep your empire afloat. The 17 (Star) you carry as both comet and karmic echo amplifies this: you&#x27;re used to being the light in the room, and when others shine for you, it doesn&#x27;t register as special — just background noise to your trajectory.</p><div class="sub"><div class="sublabel">Indicators</div><ul class="indicators"><li>Forgetting to thank people who open doors for you</li><li>Impatience when others move slower than you</li><li>Minimising compliments or help offered</li><li>Feeling like you did it all yourself</li><li>Irritation when asked to acknowledge contributions</li><li>Dismissing advice you didn&#x27;t explicitly request</li><li>Rarely celebrating others&#x27; wins</li><li>Assuming your success is self-generated</li><li>Quick to correct, slow to praise</li><li>Difficulty saying &#x27;I couldn&#x27;t have done this without you&#x27;</li></ul></div><div class="sub"><div class="sublabel">New Strategy</div><p>The new pattern is *deliberate gratitude as a daily discipline*. Not the performative Instagram kind — the real, quiet kind that changes how you see power. Start noticing the infrastructure: who schedules, who smooths, who catches what you drop. The 5 (Hierophant) in your karmic tail and on your Money Success path is your teacher here — mentorship flows both ways, babe. When you acknowledge what others give, you don&#x27;t diminish your Chariot energy; you *multiply* it. The 19 (Sun) that sits at the fusion of love and money? That&#x27;s collaborative radiance, not solo spotlight. Practice this: every win you claim, name one person who made it easier. Out loud. To them. Watch how fast your relationships and resources expand when people feel *seen* by you instead of used.</p></div><div class="sub"><div class="sublabel">Steps to Take</div><p>1. Weekly Gratitude Audit: Every Sunday evening, write down three specific moments from the past week when someone&#x27;s effort benefited you — and one thing you&#x27;ll do this week to acknowledge it. Not a text. A voice note, a handwritten card, or a face-to-face &#x27;thank you&#x27; that names the exact action. This rewires the Pride blind spot by forcing you to *hunt* for what you&#x27;ve been missing.</p><p>2. The Three-Before-Me Rule: In any meeting, conversation, or group setting, let three people speak or contribute before you offer your take. The 7 wants to lead from the front; this teaches you to lead from the middle. Notice how much intel you gather when you&#x27;re not the first voice. Notice who lights up when given space.</p><p>3. Monthly Reverse Mentorship: Identify one person — younger, less experienced, or outside your field — and ask them to teach you something they know that you don&#x27;t. The 5 (Hierophant) karmic lesson is that hierarchy isn&#x27;t fixed. Let someone else be the expert. Your job is to be the eager student. Do this once a month. Watch your empire grow.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Talents</h2><div class="numbers"><span class="n">8 (Justice)</span> · from God (b-t-p): <span class="n">8-15-5</span> · from mother (g-g1-g2): <span class="n">14-6-19</span> · from father (f-f1-f2): <span class="n">11-9-16</span></div><div class="body"><div class="sub"><div class="sublabel">Talents from God</div><p>The 8 (Justice), 15 (The Devil), and 5 (The Hierophant) stacked vertically — Arianna, you came in with the judge, the disruptor, and the teacher all in one body. Your soul-level gift is cutting through the noise to name what&#x27;s true, then building a system around it that others can follow. You see the pattern, you call it, and then you teach it with zero tolerance for bullshit. This is courtroom clarity married to magnetic authority married to institutional mastery. The combination is rare and a little dangerous: you&#x27;re built to be the one who rewrites the rules after exposing which ones were rigged. You&#x27;re a truth-teller with a doctrine behind you, and people either trust you completely or fear what you&#x27;ll uncover. Both responses are correct.</p></div><div class="sub"><div class="sublabel">Talents from Mother</div><p>The maternal line handed you 14 (Temperance), 6 (The Lovers), and 19 (The Sun) — the alchemist, the lover, and the golden child all wrapped in one inheritance. Your mother&#x27;s line carries radiant warmth, the ability to heal through presence, and a magnetism that draws people in without effort. The gift is real: you can hold opposites, blend what shouldn&#x27;t work, and make people feel seen. The shadow alongside it? A tendency to people-please until you&#x27;re exhausted, to shine for approval rather than joy, and to merge so completely in relationships that you lose your own outline. Own the brightness, Arianna, but stop dimming it to make others comfortable. The alchemy only works when you stay whole.</p></div><div class="sub"><div class="sublabel">Talents from Father</div><p>The paternal line carries 11 (Strength), 9 (The Hermit), and 16 (The Tower) — calm power, solitary mastery, and the willingness to burn it all down when it&#x27;s not true. Your father&#x27;s inheritance is quiet, ferocious courage and the capacity to walk away from what no longer serves. The gift here is the ability to stand alone, to build expertise in isolation, and to trust your own authority even when the ground is shaking. The shadow: that same strength can become withdrawal, that hermit wisdom can harden into cold distance, and the tower energy can turn self-destructive if you blow things up before they&#x27;re ready. The lesson from this line is simple — use the strength to protect what matters, not to isolate from it.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Destiny</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · soul centre (e): <span class="n">7 (The Chariot)</span> · soul searching (&lt;40): <span class="n">16 (The Tower)</span> · socialisation (40-60): <span class="n">5 (The Hierophant)</span> · spiritual exam (60+): <span class="n">21 (The World)</span></div><div class="body"><div class="pyramid"><div class="row"><div class="cell"><div class="pl">Sky</div><div class="pn">7</div><div class="pa">The Chariot</div></div><div class="cell"><div class="pl">Earth</div><div class="pn">9</div><div class="pa">The Hermit</div></div><div class="cell sum"><div class="pl">Soul Searching (&lt;40)</div><div class="pn">16</div><div class="pa">The Tower</div></div></div><div class="row"><div class="cell"><div class="pl">Male</div><div class="pn">16</div><div class="pa">The Tower</div></div><div class="cell"><div class="pl">Female</div><div class="pn">7</div><div class="pa">The Chariot</div></div><div class="cell sum"><div class="pl">Socialisation (40-60)</div><div class="pn">5</div><div class="pa">The Hierophant</div></div></div><div class="row alone"><div class="cell sum"><div class="pl">Spiritual Exam (60+)</div><div class="pn">21</div><div class="pa">The World</div></div></div></div><p>Your soul centre sits at 7 — the Chariot — so the mandate is expansion. Not gentle growth. Conquest. You&#x27;re here to build something big enough that you can drive it into new territory while the rest of us watch. The first forty years (16, the Tower) are the controlled demolition: everything false crashes so you learn what actually holds. Childhood illusions about safety, early plans that sounded good on paper, inherited structures that were never yours — all of it comes down. This isn&#x27;t failure; it&#x27;s the ground-clearing. You can&#x27;t build an empire on a foundation of lies, and the Tower makes sure you don&#x27;t try. Between forty and sixty, you enter 5 — the Hierophant — and suddenly the rubble becomes mastery. You don&#x27;t just know things; you *transmit* them. Teaching, mentoring, institutionalising what you learned in the wreckage. This is where your Chariot finds its wheels: you lead by standing in a lineage and showing others the way through. After sixty, 21 — the World — delivers completion. Global reach, legacy carved in stone, the sense that you finished what you came to do. Right now, Arianna, you&#x27;re deep in Tower years. The crashes aren&#x27;t random — they&#x27;re curriculum. Stop mourning what falls and start cataloguing what stays. That&#x27;s the material you&#x27;ll teach from later.</p></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Money</h2><div class="numbers"><span class="n">6 (The Lovers)</span> · money channel (c, right): <span class="n">6 (The Lovers)</span> · money line (l-m-n): <span class="n">19-5-13</span> · what to do (middle, m): <span class="n">5 (The Hierophant)</span> · financial block (last, n): <span class="n">13 (Death (Rebirth))</span></div><div class="body"><div class="sub"><div class="sublabel">Money Channel</div><p>Your income wants to flow through partnership, collaboration, and the magnetism of choice. The 6 is never solo — your money comes alive when you&#x27;re co-creating, whether that&#x27;s business partnerships, joint ventures, client relationships built on real connection, or creative work that requires you to choose your people carefully. You make more when someone else is in the room with you, whether literally or contractually. The register is relational — mentorship, consulting, matchmaking, design work with clients, anything where your taste and values are the product. And here&#x27;s the rule you cannot skip: the 6 demands you spend on beauty, refinement, and the things that keep your own aesthetic standards high. Skincare that works. A wardrobe that makes you feel like yourself. Dinner at the place with good lighting. Art. Flowers. If you hoard or go cheap on what makes life beautiful, the channel closes. Spend to stay magnetic.</p></div><div class="sub"><div class="sublabel">To Become Successful</div><p>Your financial engine runs on the 5 — traditional mastery, mentorship, and institutional credibility. You make money by becoming the expert, the one who knows the lineage, the teacher people pay to learn from. This is not hustle-culture grinding; it&#x27;s slow-built authority in a field with standards. Study under someone who has what you want. Get certified. Write the manual. Teach the thing you&#x27;ve mastered. The 19 (The Sun) fuels this — your natural radiance and visibility give you a head start, but the work is to turn that glow into something structured and teachable. People will pay you to pass on what you know, but only if you&#x27;ve done the years and earned the right to speak. The 5 doesn&#x27;t reward shortcuts. And the whole operation exists to override the 13 — the part of you that wants to burn it all down and start over every time you get close. Success here means committing to the lineage, not reinventing it.</p></div><div class="sub"><div class="sublabel">Financial Block</div><p>Death sits on your money, and that&#x27;s the part of you that would rather blow it up than let it stabilize. Every time income starts to build, some instinct in you decides it&#x27;s time for a transformation — you quit, you pivot, you ghost the clients, you declare the old model dead before it ever paid out. The 13 isn&#x27;t wrong to want reinvention, but in the money line it becomes self-sabotage when it runs on fear instead of completion. You end things prematurely because sticking around feels like death by another name. Here&#x27;s the fix: let the cycle finish before you burn it. Financial stability requires you to see projects through, to let the harvest happen, to tolerate the part where it&#x27;s working and therefore no longer exciting. Transformation is your gift — but money comes when you stop using it as an escape hatch.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Karmic Programs</h2><div class="numbers"><span class="n">21 (The World)</span> · karmic programs detected: <span class="n">Healer of Lineage</span></div><div class="body"><div class="program-card"><h3>Healer of Lineage</h3><div class="triple">6-5-17 · karmic tail (j-r-d)</div><div class="sub"><div class="sublabel">Strengths</div><div class="strengths">You can heal family scripts through truth, free yourself from their patterns, build a strong family, unite loved ones, pass on values to children, and stand as an example of honesty and faithfulness. You move toward goals with softness, flexibility and openness.</div></div><div class="sub"><div class="sublabel">Potential Issues</div><p>The 6 (The Lovers) leads here — and in minus, that&#x27;s the trap of choosing comfort over truth. You cling to family dynamics even when they suffocate, confusing loyalty with silence. You stay quiet when honesty would crack the cycle open, people-pleasing your way through gatherings while resentment builds underneath. The 5 (The Hierophant) amplifies this by hiding behind tradition: &quot;This is just how our family does things.&quot; You defend the dysfunction as heritage, treating toxic patterns like sacred heirlooms. The 17 (The Star) in shadow dims you completely — you flatten your own light to keep the peace, becoming the family therapist who never gets her own needs met. You absorb their wounds, carry their unexpressed grief, then wonder why you feel invisible. This is Pride karma (6-5-17) playing out: you can&#x27;t see the gifts others offer because you&#x27;re too busy managing their emotions. The irony? You stay small to belong, but belonging on those terms is exile.</p></div><div class="sub"><div class="sublabel">Recommendations</div><p>1. Name the pattern aloud in a room with witnesses. Pick one family script you&#x27;ve been carrying — the silent caretaker, the golden peacekeeper, whatever — and say to a trusted friend or therapist: &quot;I&#x27;ve been doing X because I thought it kept me safe, but it&#x27;s killing me.&quot; Verbalising breaks the spell. 2. Institute a monthly &quot;lineage inventory&quot; — journal three questions: What did I inherit that I actually want? What am I carrying out of fear? What would I do differently if no one were watching? Let the answers shock you. Don&#x27;t edit. 3. Practice micro-honesty in low-stakes moments. When someone asks what you want for dinner, don&#x27;t default to &quot;whatever you want.&quot; Say the truth. Build the muscle before the high-stakes conversation arrives. Honesty is the antidote to Pride.</p></div></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Simple Programs</h2><div class="numbers"><span class="n">21 (The World)</span> · simple programs detected: <span class="n">Cyclical Renewer, Defender of Justice</span></div><div class="body"><div class="program-card"><h3>Cyclical Renewer</h3><div class="triple">3-13-10 · left axis (a-o-s)</div><div class="sub"><div class="sublabel">Strengths</div><div class="strengths">You inspire others by your own renewal, harmonise the material and the spiritual, and find joy even in hard situations. You choose long-term perspective and stability while bringing your own timely changes to break out of old loops.</div></div><div class="sub"><div class="sublabel">Potential Issues</div><p>When the Empress goes dark, she hoards instead of creates — scarcity-mothering kicks in and you cling to what feels safe, fertile ground included. Death (Rebirth) as the accent here means your first instinct when uncomfortable is to burn it down, but with the 3 leading, you sabotage *before* the cycle naturally completes. You exit relationships, jobs, creative projects the moment they ask for real commitment or stop feeling abundant. The Wheel amplifies this: you mistake every dip in the cycle for permanent loss and bail when patience would yield the harvest. Your 17 (The Star) in comet karma whispers that visibility feels dangerous, so you disappear mid-bloom. The 6 (The Lovers) in your love line says you choose comfort over the real choice, then resent the mediocrity. You become the woman who starts ten things and finishes none because reinvention became a reflex, not renewal.</p></div><div class="sub"><div class="sublabel">Recommendations</div><p>1. Track your exit patterns in a renewal journal — write the moment you feel the urge to quit (project, person, place) and sit with it for 72 hours before acting. Name the discomfort without the story. This breaks the Empress-shadow of leaving before the harvest and teaches the Wheel that valleys aren&#x27;t failures. 2. Build a cyclical ritual around Death energy — monthly or seasonal: one thing you *complete* (finish the draft, close the chapter, have the conversation) before starting anything new. The 13 isn&#x27;t chaos; it&#x27;s compost. Let one thing rot fully before planting the next. 3. Somatic grounding when the scarcity panic hits — place both hands on your lower belly (Empress centre) and speak aloud: &quot;I have enough. This cycle will turn.&quot; Repeat until the breath steadies. Trains the nervous system to trust abundance through the dip.</p></div></div><div class="program-card"><h3>Defender of Justice</h3><div class="triple">8-5-15 · talents / top axis (b-p-t)</div><div class="sub"><div class="sublabel">Strengths</div><div class="strengths">You form a person of high inner power, an example of fairness, a keeper of traditions and a wise mentor who helps others through their own temptations. You are bright, open, active and a defender of others.</div></div><div class="sub"><div class="sublabel">Potential Issues</div><p>When Justice leads, the minus side starts cold. You see the world in binaries — right/wrong, deserving/undeserving — and the edges sharpen fast. The 8 wants a clean verdict, and when it tips into shadow you become judge, jury, and occasionally executioner of anyone who fails your internal code. The 5 amplifies this: traditions become dogma, mentorship becomes gatekeeping, and you hold people to standards they never agreed to. Then the 15 enters — your own desire gets projected as corruption in others. You spot temptation everywhere except your own blind spots, Arianna. The mix produces a particular flavour of rigidity: you defend the system while secretly resenting it, enforce rules you privately bend, or freeze people out for mistakes you&#x27;d excuse in yourself. Cross-referenced with your 6 love block and Pride tail (6-5-17), this pattern shows up sharp in relationships — you struggle to receive help without tallying debts or seeing weakness.</p></div><div class="sub"><div class="sublabel">Recommendations</div><p>1. Track the judge voice. For two weeks, write down every time you mentally convict someone (including yourself). Note the charge, the verdict, the severity. Then beside each entry, write one piece of missing context you don&#x27;t know. This is Acceptance and Commitment Therapy territory — defuse from the thought-prosecutor, see it as noise. 2. Practice receiving without balancing the ledger. When someone offers help, compliments, or affection, receive it with a five-second pause and a plain &quot;thank you&quot; — no immediate reciprocation, no explanation of why you earned it. Let the 15 learn that desire and gift can land without corruption. 3. Name your own temptations aloud to one trusted person monthly. The Devil loves secrecy; speaking your shadow (the rule you bent, the standard you lowered for yourself) breaks the projection cycle and keeps the 5&#x27;s mentorship honest.</p></div></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Sexiness</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · centre-right triple (e-u-v): <span class="n">7-5-12</span></div><div class="body"><div class="sub"><div class="sublabel">The Vibe</div><p>Arianna, you radiate controlled fire — the rare woman who enters a room like she&#x27;s commanding an army and expects the crowd to part. Your 7 (The Chariot) at centre means your magnetism is directional, not diffuse: you don&#x27;t seduce everyone, you pick a target and pursue with focused intensity. The 5 (Hierophant) underneath adds an unexpected formality — you&#x27;re turned on by competence, hierarchy, the chase structured like a campaign. And the 12 (Hanged Man) on the other side? That&#x27;s the twist. Beneath all that forward momentum sits a need to surrender, to be stopped mid-charge by someone who can actually hold you still. The vibe is warrior-meets-sacrifice: you want to be conquered, but only by someone who earned it.</p></div><div class="sub"><div class="sublabel">What You Need</div><p>A partner who can match your pace without flinching — and then slow you down on purpose. The 7 demands someone with his own mission, his own empire; you cannot respect a man who orbits you. The 5 (Hierophant) needs structure in the seduction: effort, intention, old-school courtship with a spine. And the 12? You need him to know when to pin you against the wall and make you stop performing. The paradox: you&#x27;re only soft with someone strong enough to make softness safe. If he can&#x27;t hold tension — the push, the pause, the moment before — you&#x27;re bored before the clothes come off.</p></div><div class="sub"><div class="sublabel">What Kills It</div><p>Passivity. A man who waits for you to lead, who needs instructions, who can&#x27;t read the room or hold his ground when you test him. The shadow 12 (Hanged Man) is stuckness — if he&#x27;s perpetually indecisive, suspended, waiting for you to make every move, your desire flatlines instantly. You&#x27;ll sleep with him once out of impatience and never again.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Parents</h2><div class="numbers"><span class="n">3 (The Empress)</span> · left axis (a-o-s): <span class="n">3-13-10</span></div><div class="body"><h3 style="font-family:Didot,Georgia,serif;font-size:22px;font-weight:400;color:var(--gold);margin:8px 0 14px;">Resentment Against Parents</h3><div class="sub"><div class="sublabel">(3) The Empress</div><p>You perhaps did not have enough love in childhood, and it seemed to you that other parents were better.</p><p>The 3 (The Empress) sits at the root of your family tree, Arianna — and here&#x27;s the brutal truth: you learned early that love was conditional, or at best scarce. Your mother (or the primary nurturing figure) may have been physically present but emotionally unavailable, exhausted, or overwhelmed. You absorbed the message that care must be earned, performed for, or simply wasn&#x27;t yours to expect. Maybe she loved you, but you couldn&#x27;t feel it. Maybe abundance existed in the house but never made it to your plate. You likely spent years comparing your family to others, convinced everyone else got the warmth you were owed. Now, as an adult, this manifests as difficulty receiving care without suspicion, over-giving to prove your worth, or chronic hunger for the soft maternal embrace you never quite got. You recreate scarcity even when the cupboard is full. The healing work is simple and excruciating: learn to mother yourself. Cook yourself a real meal. Speak to your own body the way you wish she had spoken to you. Stop earning love — just take it.</p></div><div class="sub"><div class="sublabel">(13) Death (Rebirth)</div><p>You have an interesting mission — you are a born alchemist of endings, but in childhood, change felt like death.</p><p>The 13 (Death) in your parental axis means you grew up in an atmosphere of constant transformation — divorces, moves, financial collapses, illness, loss. Nothing stayed. Nothing was safe. Your parents (or one of them) may have been in perpetual crisis mode, forcing the family through rebirth after rebirth with no room for you to grieve what kept dying. You learned that attachment is dangerous, that closeness precedes abandonment, that the floor will drop when you least expect it. As an adult, you carry a hair-trigger for exit strategies. Relationships, jobs, homes — you leave before they can collapse on you. Or you freeze entirely, white-knuckling stability even when the structure is already rotting. You resent your parents for never teaching you how to stay, how to trust continuity. But here&#x27;s the edge: your superpower is navigating endings with grace. You just have to stop punishing yourself for needing solid ground first. One concrete step: write a letter to your younger self during one of those collapses. Tell her she survived. Tell her the next version is coming.</p></div><div class="sub"><div class="sublabel">(10) The Wheel of Fortune</div><p>You grew up in an atmosphere of unpredictability — the wheel spun fast, and no one held the center.</p><p>The 10 (Wheel of Fortune) means your childhood was ruled by luck, or the lack of it. Boom-and-bust cycles. A parent who won big and lost bigger. Maybe addiction, gambling, risky business ventures, or just a fundamental inability to plan past next week. You never knew which version of home you&#x27;d come back to. Feast or famine. Celebration or eviction notice. You learned that life is random, that effort doesn&#x27;t guarantee results, and that no amount of good behavior could stabilize the chaos your parents created. Now, Arianna, you swing between two modes: hyper-control (white-knuckling every variable to avoid their fate) or total passivity (fuck it, nothing matters anyway, the wheel will do what it wants). You resent them for teaching you that the universe is a slot machine. But the truth is darker — you&#x27;re terrified of your own luck, convinced it will turn the second you relax. The healing: find one area of life where you let the wheel spin without gripping the axle. Trust the cycle. Track it. See that you don&#x27;t actually crash every time.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Kids</h2><div class="numbers"><span class="n">3 (The Empress)</span> · left axis (a-o-s): <span class="n">3-13-10</span></div><div class="body"><div class="sub"><div class="sublabel">(3) The Empress</div><p>The 3 (The Empress) wants you to know that your children — biological, chosen, or creative — will flourish when you give them abundance without drowning them in it. You are naturally generous, Arianna. You want to create beauty and nourishment around them. The shadow here is confusing love with provision. If you mother by making everything soft and pretty and easy, you raise kids who can&#x27;t hold their own edges. The Empress at her best is fertile ground, not a gilded cage. Your job is to create the conditions for their growth, not to be the sun, the rain, and the harvest all at once. Let them hunger a little. Let them build something with their own hands. When you trust that love doesn&#x27;t require constant giving — that presence is enough — you become the mother who raises whole people, not dependent ones. Children teach you where your nurturing crosses into control. If you find yourself managing their feelings or smoothing every conflict, stop. That&#x27;s your scarcity talking, not love.</p></div><div class="sub"><div class="sublabel">(13) Death (Rebirth)</div><p>The 13 (Death) on your axis means your children will force you through transformation whether you planned for it or not. Parenthood — literal or creative — will kill versions of you that were already dying. The woman who needed everything predictable. The woman who could keep all her time. The woman who thought she had it figured out. Gone. And if you resist that death, your relationship with your kids becomes a hostage situation. The 13 demands that you let them change you. Let them show you what needs to end. Let their mess, their needs, their refusal to follow your script burn down the parts of you that were never real in the first place. The gift: once you stop clinging to who you were, you become the mother who can hold space for their becoming. You teach them that reinvention is not failure. That shedding skin is how you stay alive. They will watch you let go and learn to do the same. But only if you go first.</p></div><div class="sub"><div class="sublabel">(10) The Wheel of Fortune</div><p>The 10 (The Wheel of Fortune) tells you that timing with children is everything, and you will never control it. The Wheel doesn&#x27;t care about your five-year plan. Kids arrive — or don&#x27;t — on karmic schedule, not yours. If you fight the timing, you miss the lesson. The 10 asks you to read the cycles. To see when the moment is ripe and when it&#x27;s fallow. Your kids, Arianna, teach you surrender to what is. Not passive waiting — active trust that the Wheel knows something you don&#x27;t. If you have children young, they grow you up fast. If you have them late, they keep you young. If you have none, your creative work becomes the child that teaches you legacy. The shadow is blaming luck when things don&#x27;t match the fantasy. The light is understanding that every cycle has its purpose. When you stop trying to force the Wheel and start riding it, your relationship with your offspring — blood or chosen — becomes easy. Joyful. Right-timed.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Relationship</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · love line (j-k-l): <span class="n">6-7-19</span> · love block (j, first): <span class="n">6 (The Lovers)</span> · ideal partner (k, middle): <span class="n">7 (The Chariot)</span> · money &amp; love fusion (l, last): <span class="n">19 (The Sun)</span></div><div class="body"><div class="sub"><div class="sublabel">Love Block — (6) The Lovers</div><p>You sabotage love by refusing to choose — freezing when commitment asks you to let someone win. The 6 (The Lovers) gates intimacy not through inability to attract but through terror of the fork in the road. You keep options open long past the sell-by date, hedge when a partner asks for clarity, and convince yourself paralysis is discernment. In early dating you&#x27;re magnetic but slippery — the moment someone wants exclusivity you suddenly need more time to &quot;figure things out.&quot; In long partnerships you create escape routes: the emotional affair you never quite close, the version of your life you keep available if this doesn&#x27;t work out, the way you hold one foot outside the door. The karmic tail opens at this same 6 — the Pride archetype — and here&#x27;s the link: past-life arrogance around relationships trained you to believe no one is quite good enough, so you hover above the choice rather than descending into it. The loop breaks the moment you admit what you actually want and name it out loud without a safety net.</p></div><div class="sub"><div class="sublabel">Ideal Partner — (7) The Chariot</div><p>The optimal partner for you is a man who doesn&#x27;t wait for permission — someone who moves fast, claims what he wants, and builds empires while you&#x27;re still weighing pros and cons. Your 7 (The Chariot) match is the guy with momentum: expanding his business, booking the trip, making the call, dragging you into motion when you&#x27;d otherwise stay suspended. He&#x27;s ambitious, occasionally blunt, and he will not tolerate your signature move of keeping him in romantic purgatory while you &quot;think about it.&quot; This partner activates your best self by forcing decision — his forward velocity makes your freeze intolerable, so you either choose him fully or lose him. What he requires from you: honesty about what you want and the guts to say it before he&#x27;s already three cities ahead. Refuse any man who lets you stay vague. If he&#x27;s willing to wait indefinitely while you hedge, he&#x27;s not your 7 — he&#x27;s feeding the block, not breaking it.</p></div><div class="sub"><div class="sublabel">Money and Love Fusion — (19) The Sun</div><p>Love brings visibility, and visibility brings money — but only if you let the relationship be seen. Your 19 (The Sun) fusion means partnerships put you in the spotlight: joint ventures, public couples&#x27; work, the relationship itself becoming part of your brand or livelihood. You&#x27;re more magnetic, more hirable, more golden when paired — but the trap is thinking you need to perform happiness to keep the glow. The money flows when the love is real and radiant, not when you&#x27;re faking ease to protect the image. Expect relationships to open financial doors — collaborations with a partner&#x27;s network, opportunities that come because you&#x27;re part of a power couple, literal income from being visible together. But if you&#x27;re with someone who dims you or demands you hide the relationship, the money dries up alongside the joy. Arianna, your love life is a public asset. Treat it accordingly.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Life Guidance</h2><div class="numbers"><span class="n">7 (The Chariot)</span> · core (e): <span class="n">7 (The Chariot)</span> · left (a): <span class="n">3 (The Empress)</span> · top (b): <span class="n">8 (Justice)</span></div><div class="body"><div class="sub"><div class="sublabel">(7) The Chariot</div><p>The Chariot (7) guides you toward forward momentum — the daily practice of choosing expansion over comfort, ambition over apology, the next level over staying small.</p><p>This energy activates when you&#x27;re in motion: leading projects, making decisions fast, pitching ideas, negotiating hard, closing deals, traveling for work, physically moving your body with purpose. The Chariot loves a timeline, a target, a race to win. It asks you to be the one steering — not riding shotgun, not waiting for permission. You light up when you&#x27;re competing (even if only against yesterday&#x27;s version of yourself), when you&#x27;re visible, when you&#x27;re driving something forward that others said couldn&#x27;t be done. The false-comfort version? Constant planning without launching. Talking about the empire you&#x27;ll build someday while never actually claiming the wheel. Aggressive energy turned inward — the fight becomes with yourself, not the world. Or worse: you bulldoze so hard you burn the relationships that could have fueled the rise. Arianna, the Chariot isn&#x27;t about winning alone. It&#x27;s about harnessing all that raw willpower and *using* it to pull something real into form — not just revving the engine in neutral.</p></div><div class="sub"><div class="sublabel">(3) The Empress</div><p>The Empress (3) guides you toward nurturing what wants to grow — the daily practice of abundance-thinking, creating beauty, and mothering projects (and people) into fullness without losing yourself in the service.</p><p>This energy activates in the sensory world: cooking a meal that feels like art, designing a space that breathes life, dressing in a way that makes you *feel* like the embodiment of plenty, working with your hands, tending gardens (literal or metaphorical), mentoring someone younger, holding space for another woman&#x27;s breakdown without trying to fix it. The Empress asks you to be the fertile ground — generative, lush, impossibly giving — but rooted in your own worth. She&#x27;s magnetic because she knows she&#x27;s the source, not the servant. The false-comfort version? Over-giving until resentment sets in. Mothering everyone but yourself. Playing small so others feel big. Scarcity-mothering: &quot;There&#x27;s not enough, so I&#x27;ll make do with less so you can have more.&quot; Or the flip side — numbing out the sensual, creative self entirely because it feels too vulnerable to let beauty matter. The Empress doesn&#x27;t apologize for wanting abundance. She creates it, tends it, and never pretends deprivation is holy.</p></div><div class="sub"><div class="sublabel">(8) Justice</div><p>Justice (8) guides you toward ruthless clarity — the daily practice of naming what&#x27;s true, holding boundaries like law, and letting cause-and-effect teach instead of rescuing people from their own karma.</p><p>This energy activates in moments of decision: contracts, confrontations, cutting off what no longer serves, calling out the lie in the room, holding someone (including yourself) accountable, seeking therapy or legal counsel, balancing the books (literal and emotional), ending relationships cleanly instead of letting them fester. Justice asks you to be the judge — not cold, but clear. To see the pattern, name it, and let the consequences fall where they&#x27;re earned. You&#x27;re wired for fairness, Arianna, but fairness isn&#x27;t keeping the peace at any cost. The false-comfort version? Avoiding hard truths to keep everyone comfortable. Letting imbalance slide because confrontation feels too sharp. Or swinging to the shadow: rigidity, superior coldness, using &quot;logic&quot; as a weapon to avoid feeling. Justice without heart becomes cruelty. The real work is integrating both — the scales *and* the sword, the diagnosis *and* the compassion. Truth-telling that doesn&#x27;t need to punish, just illuminate.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Year&#x27;s Forecast</h2><div class="numbers"><span class="n">11 (Strength)</span> · age 21: <span class="n">11 (Strength)</span> · age 22: <span class="n">11 (Strength)</span></div><div class="body"><p>Right now at age 21, you&#x27;re under the 11 (Strength) — and here&#x27;s what that means: you&#x27;re learning to tame the beast without breaking it. This is the year of calm power, of choosing soft authority over brute force, of magnetism that doesn&#x27;t scream. You&#x27;re holding more than you think you are. The world feels like it wants you to be louder, sharper, more aggressive — but the 11 asks the opposite. It asks you to stand still in your own gravity and let people come to you.</p><p>Strength at 21 is about learning to trust your body, your instincts, your sensual knowing. You&#x27;ve got the 7 (The Chariot) in your centre — ambition, momentum, the drive to expand. But this year, the 11 is teaching you that real dominance isn&#x27;t velocity. It&#x27;s steadiness. You don&#x27;t chase; you root. Cross-reference your love line — the 6 (The Lovers) sits there, which means every relationship question this year is actually a question about values. Who stays when you stop performing? The 11 says: love the ones who don&#x27;t need you shrill. And money-wise, the 6 in your channel means you earn through partnership, beauty, alignment — so this year&#x27;s strength lesson applies there too. Stop forcing deals. Let the right ones find you magnetic.</p><p>But when you turn 22, the year shifts to the 11 again — same card, different octave. You&#x27;re not starting over; you&#x27;re deepening. The decade underneath both years is the 22 (The Fool), and that&#x27;s the kicker. The 22 is unconditional love, total freedom, zero and infinity at once. So while surface energy stays steady (the 11), the *ground* you&#x27;re standing on is actually cracking open into something wilder. At 22, the Strength card stops being a lesson and starts being your signature. You&#x27;re no longer learning to hold your power — you&#x27;re using it. The 22 whispers: you don&#x27;t owe anyone your smallness. The 11 answers: and you don&#x27;t need force to take up space.</p><p>What changes: at 21, you&#x27;re figuring out how not to break yourself. At 22, you&#x27;re figuring out how much space you&#x27;re actually allowed to claim. The 17 (The Star) in your karmic tail — Pride — means you came in with the wound of not being able to appreciate what others offer you. The 11 at 22 flips that. You finally see your own worth clearly enough to let others celebrate you without flinching. You stop apologising for shining.</p><p>Use the rest of this year to practice being unmoved. Choose one thing you usually fight for and let it come to you instead. Set the trap: don&#x27;t confuse stillness with passivity. Strength isn&#x27;t waiting. It&#x27;s deciding you&#x27;re worth the wait.</p></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Personal Brand</h2><div class="numbers"><span class="n">3 (The Empress)</span> · personal triple (e-a-b): <span class="n">7-3-8</span> · money pair (c-n): <span class="n">6-13</span></div><div class="body"><p>The uniqueness of your personality gives additional value to your product or service. It forms a personal brand that lets you show your own opinion, vision and skills to absolutely everyone. You should be visible as the Unstoppable Advocate — the fierce, abundant voice who breaks down systems and rebuilds them with heart. Your 7-3-8 combination reads like a prosecutor turned creator-educator who refuses to settle for half-truths or half-measures. You&#x27;re built to expand aggressively (7), package it beautifully and abundantly (3), and back every claim with unshakeable logic (8). This is brand-as-crusade energy, softened by real generosity.</p><div class="sub"><div class="sublabel">Topics for Opening Up Your Personality</div></div><div class="sub"><div class="sublabel">(7) The Chariot</div><p>You are called to expand your reach relentlessly and bring audiences from one level of understanding to another — fast. The 7 (The Chariot) doesn&#x27;t wait for permission or tiptoe into visibility. Your content should move like a campaign: serial launches, momentum-based formats, ambition worn on your sleeve. Think video series that build toward a clear win, educational arcs with progress markers, or challenge-style content where the audience visibly levels up. You thrive in formats that demand consistency and forward motion — daily uploads, sprint-based courses, growth accountability communities. The Chariot brand is about conquest you can track. Your audience should feel like they&#x27;re riding shotgun on something unstoppable, not wandering through a mood board.</p></div><div class="sub"><div class="sublabel">(3) The Empress</div><p>You can easily create any kind of abundance, beauty, or sensory-rich experience — and package it so lushly people want to live inside it. The 3 (The Empress) is your nurturing genius and aesthetic anchor. This is the arcanum that makes your brand feel abundant even when you&#x27;re teaching hard truths. Build content around creating more: more money, more pleasure, more creative output, more visible beauty in everyday life. Formats that let you show the making-of — studio diaries, before-and-after transformations, resource libraries that feel like treasure chests. Your imagery should look fertile, not sterile. The Empress wants tactile proof that following you leads to overflow, not scarcity. This is also your permission slip to monetise generously — courses with bonuses, memberships with perks, upsells that feel like gifts.</p></div><div class="sub"><div class="sublabel">(8) Justice</div><p>You are given the ability to see, feel, and understand cause-and-effect relationships more deeply than most — and you&#x27;re meant to teach that clarity. The 8 (Justice) makes you the truth-teller who can forensically break down why something worked or didn&#x27;t. Your audience will come to you for diagnosis and verdict. Content themes: karmic patterns in money or relationships, systemic breakdowns (legal, corporate, cultural), accountability frameworks, decision-making tools, evidence-based spiritual practice. Formats that let you present cases: myth-busting breakdowns, Reddit-story analysis, client case studies (anonymised), &#x27;here&#x27;s what actually happened&#x27; teardowns. The Justice brand speaks with doctor-level certainty. Never hedge. Your tone can be warm, but your conclusions must be surgical.</p></div><div class="sub"><div class="sublabel">Self-Positioning Topics</div><p>Your money channel is the 6 (The Lovers), and that names your expertise: choice architecture. You get paid to help people navigate the high-stakes decisions that shape their lives — love, career pivots, values clarity, walking away from what no longer serves. Position yourself as the guide for people at crossroads, especially women in their twenties and thirties facing the &#x27;which path?&#x27; vertigo around relationships, career identity, or starting over. Your niche is decision-making for the heart-led and ambitious — not life coaching in the soft sense, but forensic clarity for people who refuse to waste another year on the wrong thing. The 13 (Death/Rebirth) warns: if you cling to safe positioning or refuse to let your brand evolve when it&#x27;s time, the money dries up. Shed the old skin as soon as it stops fitting.</p></div><div class="sub"><div class="sublabel">Visuals</div><p>Rich, confident, slightly dangerous. Think jewel tones — emerald, deep burgundy, midnight blue, gold accents — not pastels or millennial pink. Your imagery should look like a courtroom met a greenhouse: structure softened by abundance. Photography style: bold eye contact, natural light but high contrast, textures that communicate wealth (velvet, silk, raw wood, stone). Avoid the washed-out &#x27;clean girl&#x27; aesthetic — you&#x27;re not minimalist. Typography: strong serifs or modern sans with weight, nothing whimsical or hand-lettered. Your visual brand should say &#x27;I will tell you the truth and then hand you roses.&#x27; Mood board references: old-money editorials, legal dramas with beautiful cinematography, botanical gardens at golden hour. The palette is lush but never chaotic. Every visual choice should feel like a verdict you&#x27;re certain about.</p></div></div></section><section class="aspect"><div class="eyebrow">Aspect</div><h2>Health</h2><div class="numbers"><span class="n">15 (The Devil (Passion))</span> · crown: <span class="n">3 (The Empress)</span> · third eye: <span class="n">13 (Death (Rebirth))</span> · throat: <span class="n">10 (The Wheel of Fortune)</span> · heart: <span class="n">17 (The Star)</span> · solar plexus: <span class="n">7 (The Chariot)</span> · sacral: <span class="n">13 (Death (Rebirth))</span> · root: <span class="n">6 (The Lovers)</span> · result physics: <span class="n">15 (The Devil (Passion))</span></div><div class="body"><div class="sub"><div class="sublabel">Crown (Sahasrara) · 3 — The Empress</div><p><em>Body systems:</em> The brain, hair, upper part of the skull.</p><p>The 3 (The Empress) sits at your crown — this is where the channel to divine abundance opens for you. Your spiritual connection runs through creativity, beauty, and embodied presence, not ascetic detachment. When you&#x27;re aligned, ideas flow like water and you feel resourced by something bigger. The shadow shows up as mental scarcity: headaches when you&#x27;re forcing outcomes, insomnia when you&#x27;ve cut yourself off from pleasure. Your crown thrives when your body thrives. Feed it sensory richness — art, texture, good food — and the receiver stays open. Starve those things and the signal drops.</p></div><div class="sub"><div class="sublabel">Third Eye (Ajna) · 13 — Death (Rebirth)</div><p><em>Body systems:</em> Occipital and temporal lobes of the brain, eyes, ears, nose, face, upper jaw, upper jaw teeth, optic nerve, cerebral cortex.</p><p>The 13 (Death) sits here — heavy, yes, but also the seat of radical sight. You see endings before they arrive. You read people&#x27;s expiration dates. This is clairvoyance through decay, Arianna, and it&#x27;s a gift once you stop running from it. The shadow: migraines, vision issues, sinus pressure when you refuse to see what&#x27;s dying. Your third eye doesn&#x27;t do pastel optimism; it does brutal truth. Honour that or it punishes you with fog and pressure between the brows. Clearing practice: let yourself name what&#x27;s over, even if no one else is ready. The relief is immediate.</p></div><div class="sub"><div class="sublabel">Throat (Vishuddha) · 10 — The Wheel of Fortune</div><p><em>Body systems:</em> Thyroid gland, trachea, bronchi, throat, vocal cords, shoulders, arms, seventh cervical vertebra, all cervical vertebrae, lower jaw, lower jaw teeth.</p><p>The 10 (Wheel of Fortune) makes your throat a karmic junction point — cycles of silence and sudden, unstoppable speech. You either swallow everything or erupt. Thyroid sensitivity, chronic sore throats, and neck tension when you&#x27;re riding the wheel passively instead of reading the timing. You have a voice that shifts the room when you use it, but only if you stop waiting for permission from the cycle. The lesson: your words are the leverage that turns the wheel, not the other way around. Speak at the right moment and the whole game changes. Miss it and your throat closes for months.</p></div><div class="sub"><div class="sublabel">Heart (Anahata) · 17 — The Star</div><p><em>Body systems:</em> Heart, circulatory system, respiratory system, lungs, bronchi, thoracic spine, ribs, shoulder scapular area, chest.</p><p>The 17 (The Star) — your heart is built for visibility and it knows it. This is also your comet karma, so the echo is loud: you came here to shine in public, and your cardiovascular system reflects that. When you&#x27;re seen and appreciated, your heart is golden. When you dim yourself or hide, palpitations, chest tightness, circulation issues. Your heart doesn&#x27;t do small or secret. It&#x27;s wired for applause and radiance. The clearing is counterintuitive: let yourself be the centre. Post the thing. Take the stage. Your heart literally expands when you stop apologising for taking up space.</p></div><div class="sub"><div class="sublabel">Solar Plexus (Manipura) · 7 — The Chariot</div><p><em>Body systems:</em> Gastrointestinal tract, abdominal organs, pancreas, spleen, liver, gallbladder, small intestine, central part of the spine.</p><p>The 7 (The Chariot) — your centre of destiny — sits at your solar plexus, so this is command central. Willpower, momentum, digestive fire. When you&#x27;re moving toward something you want, your gut is a furnace. When you&#x27;re stuck or serving someone else&#x27;s agenda, digestive chaos: nausea, bloating, ulcers. Your solar plexus demands forward motion and it doesn&#x27;t care about the odds. Stagnation makes you physically ill. The fix is always the same: make a choice and move. Even the wrong direction is better than neutral for your gut. Your digestion is a barometer of whether you&#x27;re driving or being driven.</p></div><div class="sub"><div class="sublabel">Sacral (Svadhisthana) · 13 — Death (Rebirth)</div><p><em>Body systems:</em> Adrenal glands, uterus and ovaries, kidneys, intestines, prostate gland in men, lumbar spinal column.</p><p>The 13 again — Death lives in your womb space, your creative core, your sexual centre. This is where transformation happens through the body. Intense cycles, reproductive sensitivity, lower back pain when you&#x27;re clinging to what needs to end. Your sacral doesn&#x27;t do stale relationships or dead projects — it aborts them, literally or metaphorically. Endometriosis-level signals if you override the knowing. But when you let things die on time, this centre is pure regenerative power. You create from the compost. Hormonal health improves radically when you stop forcing things to survive past their season.</p></div><div class="sub"><div class="sublabel">Root (Muladhara) · 6 — The Lovers</div><p><em>Body systems:</em> Urogenital system, lower limbs, large intestine, tailbone, sacrum, legs.</p><p>The 6 (The Lovers) — choice and partnership anchor your survival channel. Your root stability comes through relationship and values clarity, not solo grinding. Grounding issues, leg and foot problems, lower-body weakness when you&#x27;re in the wrong partnership or making choices that betray your core values. Your root chakra is also your love block and your money channel, so every relational compromise destabilises your foundation. The clearing: choose your people like your life depends on it, because your nervous system says it does. Solid partnerships = solid ground. Weak boundaries = chronic instability in the base.</p></div></div></section>
+
+  <footer class="outro">
+    Read with respect. The matrix names the pattern — you choose what to do with it.
+  </footer>
+</div>
+</body>
+</html>
