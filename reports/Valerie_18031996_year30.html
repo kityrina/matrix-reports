@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Valerie — Year 2026–2027 Forecast</title>
+<style>:root {
+  --bg: #0B0710;
+  --fg: #F5F1F0;
+  --muted: #9C8FA6;
+  --gold: #E8C77E;
+  --pink: #FF4D7E;
+  --rule: #2a1f33;
+  --paid: rgba(232,199,126,0.18);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  margin: 0; padding: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 880px; margin: 0 auto; padding: 56px 28px 96px; }
+
+header.cover { text-align: center; padding: 28px 0 8px; border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+header.cover .brand { letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); font-size: 11px; margin-bottom: 18px; }
+header.cover h1 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 44px; margin: 0 0 6px; letter-spacing: 0.02em; }
+header.cover .subtitle { color: var(--muted); font-style: italic; font-size: 16px; }
+
+.chart-wrap {
+  background: linear-gradient(180deg,#14091f 0%,#0B0710 100%);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 28px 18px 12px;
+  margin: 32px 0 28px;
+}
+.chart-meta {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  margin-top: 18px;
+  font-size: 13px;
+}
+.chart-meta .cell { background: rgba(255,255,255,0.025); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; }
+.chart-meta .label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; margin-bottom: 4px; }
+.chart-meta .val { color: var(--fg); font-size: 14px; }
+.chart-meta .val .arc { color: var(--gold); }
+
+.report-intro {
+  font-size: 16px; line-height: 1.7;
+  background: rgba(255,77,126,0.05);
+  border-left: 2px solid var(--pink);
+  padding: 18px 22px; margin: 28px 0 8px;
+  font-style: italic;
+}
+
+section.aspect { padding: 36px 0; border-bottom: 1px solid var(--rule); }
+section.aspect:last-child { border-bottom: none; }
+section.aspect .eyebrow { color: var(--gold); letter-spacing: 0.28em; text-transform: uppercase; font-size: 11px; margin-bottom: 8px; }
+section.aspect h2 { font-family: "Didot","Bodoni MT",Georgia,serif; font-weight: 400; font-size: 30px; margin: 0 0 6px; letter-spacing: 0.01em; }
+section.aspect .numbers { color: var(--muted); font-size: 12px; margin-bottom: 22px; font-style: italic; }
+section.aspect .numbers .n { color: var(--gold); font-style: normal; }
+section.aspect .body { font-size: 16.5px; line-height: 1.78; color: #EDE6E2; }
+section.aspect .body p { margin: 0 0 1.05em; }
+
+.sub { margin: 24px 0 18px; }
+.sub .sublabel {
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.indicators { padding-left: 20px; margin: 8px 0 16px; }
+.indicators li { margin-bottom: 4px; }
+.paid-box {
+  background: var(--paid);
+  border: 1px dashed var(--gold);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 14px;
+}
+.paid-box strong { color: var(--gold); font-style: normal; }
+
+.pyramid { margin: 16px 0 24px; display: flex; flex-direction: column; gap: 14px; }
+.pyramid .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; align-items: center; }
+.pyramid .row.alone { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+.pyramid .cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+}
+.pyramid .cell .pl { color: var(--muted); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+.pyramid .cell .pn { color: var(--gold); font-size: 16px; font-weight: 600; }
+.pyramid .cell .pa { color: var(--fg); font-size: 12px; font-style: italic; margin-top: 2px; }
+.pyramid .cell.sum { background: rgba(255,77,126,0.08); border-color: var(--pink); }
+
+.program-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 14px 0;
+}
+.program-card h3 { margin: 0 0 4px; font-family: "Didot",Georgia,serif; font-size: 20px; font-weight: 400; color: var(--gold); }
+.program-card .triple { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
+.program-card .strengths { font-size: 15px; line-height: 1.6; margin-bottom: 10px; }
+
+footer.outro {
+  margin-top: 56px; padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  text-align: center; color: var(--muted);
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+
+/* Floating download-PDF button (hidden when printing). */
+.pdf-btn {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--pink); color: #0B0710;
+  border: none; border-radius: 999px;
+  padding: 14px 22px;
+  font-family: Georgia, serif; font-size: 14px; font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 100;
+  transition: transform 0.15s, filter 0.15s;
+}
+.pdf-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.pdf-btn::before { content: "↓ "; margin-right: 4px; }
+
+/* Floating "Home" button — visible only when served from localhost, never
+   on a published copy and never in print. JS toggles display at load. */
+.home-btn {
+  position: fixed;
+  top: 24px; left: 24px;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: Georgia, serif; font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 100;
+  display: none;                /* hidden by default */
+  transition: all 0.15s;
+}
+.home-btn:hover { background: rgba(232,199,126,0.1); transform: translateY(-1px); }
+.home-btn::before { content: "← "; margin-right: 2px; opacity: 0.7; }
+
+/* ============================================================ */
+/* PRINT / PDF — light magazine-style theme.                    */
+/* Triggered by browser Print dialog (Ctrl+P / Cmd+P).          */
+/* ============================================================ */
+
+@page {
+  size: A4;
+  margin: 24mm 22mm 26mm 22mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: Georgia, serif;
+    font-size: 9pt;
+    color: #8a7a5b;
+  }
+  @top-right {
+    content: string(report-title);
+    font-family: Georgia, serif;
+    font-size: 8pt;
+    color: #b5a682;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+@page :first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+@media print {
+  :root {
+    --bg: #FBF7F2;
+    --fg: #1a1320;
+    --muted: #7a6e5e;
+    --gold: #9a7e3a;
+    --pink: #b53e64;
+    --rule: #d9cdb8;
+  }
+  html, body { background: #FBF7F2 !important; color: #1a1320 !important; }
+  body { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  /* Hide on-screen-only controls */
+  .pdf-btn { display: none !important; }
+  .home-btn { display: none !important; }
+
+  /* String for header — set from cover h1 */
+  header.cover h1 { string-set: report-title content(); }
+
+  .wrap { max-width: 100%; padding: 0; margin: 0; }
+
+  /* --- COVER PAGE (full-bleed) --- */
+  header.cover {
+    page: cover;
+    height: 297mm;
+    margin: 0;
+    padding: 40mm 20mm 30mm;
+    border: none;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 38%, rgba(232,199,126,0.18), transparent 55%),
+      linear-gradient(180deg, #FBF7F2, #F0E7D6 70%, #E8DDC4);
+    box-sizing: border-box;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+  }
+  header.cover .brand {
+    color: #9a7e3a !important;
+    font-size: 9pt; letter-spacing: 0.45em;
+    margin-bottom: 24mm;
+  }
+  header.cover h1 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 56pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 8mm; letter-spacing: 0.01em;
+  }
+  header.cover .subtitle {
+    color: #5a4e3d !important; font-style: italic;
+    font-size: 13pt; margin-bottom: 18mm;
+  }
+
+  /* Decorative cover ornament */
+  header.cover::after {
+    content: "✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 18pt;
+    margin-top: auto;
+    margin-bottom: 8mm;
+    opacity: 0.7;
+  }
+
+  /* --- MATRIX CHART --- on its own page, light theme --- */
+  .chart-wrap {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin: 0 0 10mm;
+    page-break-before: avoid;
+    page-break-after: always;
+    break-after: page;
+  }
+  .chart-wrap svg { max-width: 150mm !important; margin: 0 auto !important; display: block !important; }
+
+  /* Repaint SVG fills for print readability */
+  .chart-wrap svg circle[fill="#0B0710"] { fill: #FBF7F2 !important; }
+  .chart-wrap svg text[fill="#F5F1F0"] { fill: #1a1320 !important; }
+  .chart-wrap svg text[fill="#E8C77E"] { fill: #9a7e3a !important; }
+  .chart-wrap svg polygon[stroke="#E8C77E"] { stroke: #9a7e3a !important; }
+  .chart-wrap svg line[stroke="#9C8FA6"] { stroke: #7a6e5e !important; }
+  .chart-wrap svg circle[fill="url(#centerGlow)"] { fill: rgba(181,62,100,0.10) !important; }
+
+  /* Chart meta — softer table for print */
+  .chart-meta {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6mm !important; margin-top: 8mm !important;
+    page-break-inside: avoid;
+  }
+  .chart-meta .cell {
+    background: transparent !important;
+    border: 1px solid #d9cdb8 !important;
+    color: #2a1f33 !important;
+    padding: 6mm 5mm !important;
+  }
+  .chart-meta .label { color: #7a6e5e !important; }
+  .chart-meta .val .arc { color: #9a7e3a !important; }
+
+  /* --- INTRO --- */
+  .report-intro {
+    background: transparent !important;
+    border: none !important;
+    border-top: 1px solid #d9cdb8 !important;
+    border-bottom: 1px solid #d9cdb8 !important;
+    margin: 12mm 0 !important;
+    padding: 8mm 6mm !important;
+    color: #3a2e23 !important;
+    font-style: italic;
+    text-align: center;
+    font-size: 12pt;
+    page-break-inside: avoid;
+  }
+
+  /* --- ASPECT SECTIONS --- */
+  section.aspect {
+    page-break-before: always;
+    break-before: page;
+    border-bottom: none !important;
+    padding: 0 4mm 6mm !important;     /* extra inner breathing room */
+  }
+  section.aspect:first-of-type { page-break-before: auto; break-before: auto; }
+  section.aspect .eyebrow {
+    color: #9a7e3a !important; font-size: 8pt; letter-spacing: 0.34em;
+    margin-bottom: 4mm;
+  }
+  section.aspect h2 {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 32pt; font-weight: 400;
+    color: #2a1f33 !important;
+    margin: 0 0 3mm;
+  }
+  section.aspect h2::after {
+    content: "";
+    display: block;
+    width: 30mm;
+    height: 1px;
+    background: #9a7e3a;
+    margin: 4mm 0;
+    opacity: 0.6;
+  }
+  section.aspect .numbers {
+    color: #7a6e5e !important; font-size: 9pt;
+    margin-bottom: 6mm;
+    font-style: italic;
+  }
+  section.aspect .numbers .n { color: #9a7e3a !important; }
+  section.aspect .body {
+    font-size: 11pt; line-height: 1.6;
+    color: #1a1320 !important;
+  }
+  section.aspect .body p { margin: 0 0 3mm; orphans: 3; widows: 3; }
+  section.aspect .body p:first-of-type::first-letter {
+    font-family: "Didot","Bodoni MT",Georgia,serif;
+    font-size: 28pt; line-height: 0.85;
+    color: #9a7e3a;
+    float: left;
+    margin: 2pt 4pt 0 0;
+  }
+
+  /* --- SUB-BLOCKS --- */
+  .sub { margin: 6mm 0 4mm; page-break-inside: avoid; }
+  .sub .sublabel {
+    color: #9a7e3a !important;
+    border-bottom: 1px solid #d9cdb8;
+    padding-bottom: 1mm; margin-bottom: 3mm;
+    font-size: 8.5pt; letter-spacing: 0.22em;
+  }
+
+  /* Indicators */
+  .indicators li { margin-bottom: 1.5mm; }
+
+  /* Pyramid (Destiny) */
+  .pyramid { page-break-inside: avoid; margin: 4mm 0 8mm; }
+  .pyramid .cell {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+  }
+  .pyramid .cell.sum { background: #F6E2E0 !important; border-color: #b53e64 !important; }
+  .pyramid .cell .pn { color: #9a7e3a !important; }
+  .pyramid .cell .pa { color: #2a1f33 !important; }
+
+  /* Program cards */
+  .program-card {
+    background: #F5EFE2 !important;
+    border: 1px solid #d9cdb8 !important;
+    border-radius: 4px;
+    padding: 5mm 6mm;
+    margin: 4mm 0;
+    page-break-inside: avoid;
+  }
+  .program-card h3 {
+    color: #9a7e3a !important;
+    font-family: "Didot",Georgia,serif;
+    font-size: 14pt;
+  }
+  .program-card .triple { color: #7a6e5e !important; }
+
+  /* Footer outro */
+  footer.outro {
+    page-break-before: always;
+    break-before: page;
+    border-top: none !important;
+    text-align: center;
+    color: #7a6e5e !important;
+    font-size: 8.5pt; letter-spacing: 0.34em;
+    margin-top: 30mm;
+    padding-top: 0;
+  }
+  footer.outro::before {
+    content: "✦ ✦ ✦";
+    display: block;
+    color: #9a7e3a;
+    font-size: 14pt;
+    margin-bottom: 8mm;
+    opacity: 0.6;
+    letter-spacing: 0.6em;
+  }
+}
+
+/* Year report — slight visual differentiation from the Full Matrix:
+   slimmer cover band, the triad meta strip uses three accent cells. */
+.year-triad-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+                    margin: 12px 0 6px 0; }
+.year-triad-strip .cell { background: rgba(255,77,126,0.05); border: 1px solid var(--pink);
+                          border-radius: 10px; padding: 14px 16px; text-align: center; }
+.year-triad-strip .cell .label { color: var(--muted); letter-spacing: 0.16em;
+                                 text-transform: uppercase; font-size: 10px; margin-bottom: 6px; }
+.year-triad-strip .cell .role  { color: var(--gold); font-style: italic; font-size: 12px;
+                                 margin-top: 4px; }
+.year-triad-strip .cell .arc   { color: var(--fg); font-family: "Didot",Georgia,serif;
+                                 font-size: 26px; }
+.year-window { color: var(--gold); letter-spacing: 0.22em; text-transform: uppercase;
+               font-size: 11px; margin-top: 14px; }
+</style>
+</head>
+<body>
+<button class="home-btn" onclick="window.location.href='/hsw'" title="Back to the generator (hidden on published copies clients see)">Home</button>
+<button class="pdf-btn" onclick="window.print()" title="Save as PDF">Download PDF</button>
+<script>
+  (function() {
+    var h = window.location.hostname;
+    var isPublic = h.endsWith("github.io") || h === "hotslavicwitch.com" || h === "www.hotslavicwitch.com";
+    if (!isPublic) {
+      document.querySelector(".home-btn").style.display = "inline-block";
+    }
+  })();
+</script>
+<div class="wrap">
+  <header class="cover">
+    <div class="brand">Hot Slavic Witch · Year Forecast</div>
+    <h1>Valerie</h1>
+    <div class="subtitle">18.03.1996 · age 30</div>
+    <div class="year-window">Mar 18, 2026 → Mar 18, 2027</div>
+  </header>
+
+  <div class="chart-wrap">
+    <svg viewBox="-8 -8 296 296" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Matrix of Destiny chart" style="width:100%;max-width:680px;display:block;margin:0 auto;"><defs><radialGradient id="centerGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#F5C842" stop-opacity="0.32"/><stop offset="100%" stop-color="#F5C842" stop-opacity="0"/></radialGradient><filter id="heartGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="1.2" result="blur"/><feFlood flood-color="#FF1744" flood-opacity="0.95"/><feComposite in2="blur" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="dollarGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="1.2" result="blur"/><feFlood flood-color="#3CFF6E" flood-opacity="0.95"/><feComposite in2="blur" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="arrMale" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#C5BC9C"/></marker><marker id="arrFem" viewBox="0 0 6 6" refX="5" refY="3"  markerWidth="3" markerHeight="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#FFF8DB"/></marker></defs><circle cx="140" cy="140" r="105" fill="url(#centerGlow)"/><text x="23.15" y="123.83" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">21</text><text x="18.70" y="122.76" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">1-2.5</text><text x="26.46" y="115.90" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">3</text><text x="22.07" y="114.51" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">2.5-3.5</text><text x="29.78" y="107.97" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">15</text><text x="25.47" y="106.27" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">3.5-4</text><text x="33.09" y="100.04" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">12</text><text x="28.90" y="98.02" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">5</text><text x="35.58" y="92.33" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">18</text><text x="31.51" y="90.01" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">6-7.5</text><text x="38.90" y="84.40" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">6</text><text x="34.98" y="81.79" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">7.5-8.5</text><text x="42.21" y="76.47" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">9</text><text x="38.46" y="73.58" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">8.5-9</text><text x="71.63" y="45.40" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">3</text><text x="69.02" y="41.33" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">11-12.5</text><text x="79.50" y="41.97" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">9</text><text x="77.16" y="37.73" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">12.5-13.5</text><text x="86.96" y="38.54" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">15</text><text x="84.90" y="34.14" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">13.5-14</text><text x="94.42" y="35.11" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">6</text><text x="92.65" y="30.58" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">15</text><text x="102.29" y="31.69" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">15</text><text x="100.83" y="27.03" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">16-17.5</text><text x="109.75" y="28.47" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">9</text><text x="108.59" y="23.72" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">17.5-18.5</text><text x="117.62" y="25.26" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">12</text><text x="116.77" y="20.44" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">18.5-19</text><text x="162.38" y="25.26" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">19</text><text x="163.23" y="20.44" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">21-22.5</text><text x="170.25" y="28.69" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">16</text><text x="171.41" y="23.94" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">22.5-23.5</text><text x="178.12" y="32.11" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">11</text><text x="179.60" y="27.47" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">23.5-24</text><text x="185.58" y="35.54" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">13</text><text x="187.36" y="31.01" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">25</text><text x="193.45" y="38.97" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">18</text><text x="195.53" y="34.58" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">26-27.5</text><text x="200.91" y="41.97" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">5</text><text x="203.26" y="37.73" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">27.5-28.5</text><text x="208.78" y="45.40" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">15</text><text x="211.41" y="41.34" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">28.5-29</text><text x="237.79" y="76.26" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">19</text><text x="241.54" y="73.36" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">31-32.5</text><text x="241.10" y="84.19" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">9</text><text x="245.02" y="81.57" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">32.5-33.5</text><text x="244.42" y="92.11" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">8</text><text x="248.49" y="89.79" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">33.5-34</text><text x="247.73" y="100.04" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">17</text><text x="251.94" y="98.03" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">35</text><text x="251.05" y="107.97" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">5</text><text x="255.36" y="106.27" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">36-37.5</text><text x="254.36" y="115.90" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">6</text><text x="258.76" y="114.52" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">37.5-38.5</text><text x="257.68" y="123.83" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">13</text><text x="262.13" y="122.76" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">38.5-39</text><text x="256.44" y="167.54" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">20</text><text x="260.83" y="168.13" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">41-42.5</text><text x="253.12" y="175.69" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">13</text><text x="257.43" y="176.59" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">42.5-43.5</text><text x="249.81" y="183.61" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">19</text><text x="254.01" y="184.83" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">43.5-44</text><text x="246.49" y="191.54" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">6</text><text x="250.56" y="193.06" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">45</text><text x="243.18" y="199.47" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">11</text><text x="247.10" y="201.28" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">46-47.5</text><text x="239.86" y="207.40" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">5</text><text x="243.62" y="209.48" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">47.5-48.5</text><text x="236.55" y="215.33" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">22</text><text x="240.12" y="217.66" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">48.5-49</text><text x="207.13" y="246.40" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">7</text><text x="209.55" y="249.79" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">51-52.5</text><text x="199.46" y="249.83" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">8</text><text x="201.63" y="253.37" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">52.5-53.5</text><text x="192.00" y="253.26" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">17</text><text x="193.90" y="256.94" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">53.5-54</text><text x="184.34" y="256.47" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">9</text><text x="185.95" y="260.27" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">55</text><text x="176.67" y="259.69" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">10</text><text x="178.00" y="263.58" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">56-57.5</text><text x="169.01" y="263.11" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">19</text><text x="170.05" y="267.09" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">57.5-58.5</text><text x="161.13" y="266.33" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">11</text><text x="161.88" y="270.37" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">58.5-59</text><text x="118.45" y="266.33" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">13</text><text x="117.69" y="270.36" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">61-62.5</text><text x="110.79" y="263.11" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">3</text><text x="109.74" y="267.09" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">62.5-63.5</text><text x="102.91" y="259.69" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">5</text><text x="101.57" y="263.58" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">63.5-64</text><text x="95.25" y="256.47" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">20</text><text x="93.62" y="260.27" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">65</text><text x="87.38" y="253.26" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">5</text><text x="85.46" y="256.93" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">66-67.5</text><text x="79.71" y="249.83" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">3</text><text x="77.52" y="253.36" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">67.5-68.5</text><text x="72.04" y="246.40" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">13</text><text x="69.60" y="249.78" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">68.5-69</text><text x="41.80" y="215.11" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">3</text><text x="38.20" y="217.42" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">71-72.5</text><text x="38.48" y="207.40" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">20</text><text x="34.71" y="209.45" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">72.5-73.5</text><text x="35.17" y="199.69" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">3</text><text x="31.23" y="201.47" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">73.5-74</text><text x="31.85" y="191.97" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">10</text><text x="27.77" y="193.48" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">75</text><text x="28.54" y="184.04" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">20</text><text x="24.33" y="185.25" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">76-77.5</text><text x="25.22" y="176.11" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">10</text><text x="20.91" y="177.02" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">77.5-78.5</text><text x="21.91" y="168.19" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="4" fill="#FFF8DB">10</text><text x="17.52" y="168.78" text-anchor="middle" font-family="Georgia, serif" font-size="2.4" fill="#C5BC9C">78.5-79</text><polygon points="34.42,145.14 140.00,35.00 245.00,145.14 140.00,254.00" fill="none" stroke="#FFF8DB" stroke-width="0.9" opacity="0.85"/><polygon points="65.21,66.93 214.38,66.93 214.38,221.34 65.29,221.00" fill="none" stroke="#FFF8DB" stroke-width="0.9" opacity="0.85"/><line x1="34.42" y1="145.14" x2="245.00" y2="145.14" stroke="#C5BC9C" stroke-width="0.5" opacity="0.4"/><line x1="140.00" y1="35.00" x2="140.00" y2="254.00" stroke="#C5BC9C" stroke-width="0.5" opacity="0.4"/><line x1="65.21" y1="66.93" x2="214.38" y2="221.34" stroke="#C5BC9C" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrMale)"/><line x1="214.38" y1="66.93" x2="65.29" y2="221.00" stroke="#FFF8DB" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1.5" marker-end="url(#arrFem)"/><circle cx="174.88" cy="180.71" r="3.6" fill="#050215" stroke="#FFF8DB" stroke-width="0.6"/><text x="174.88" y="182.11" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#FFFFFF">12</text><circle cx="156.99" cy="199.57" r="3.6" fill="#050215" stroke="#FFF8DB" stroke-width="0.6"/><text x="156.99" y="200.97" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#FFFFFF">6</text><circle cx="192.62" cy="161.86" r="3.6" fill="#050215" stroke="#FFF8DB" stroke-width="0.6"/><text x="192.62" y="163.26" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="4" fill="#FFFFFF">3</text><circle cx="78.14" cy="81.71" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="78.14" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">10</text><circle cx="89.45" cy="93.71" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="89.45" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">7</text><circle cx="200.82" cy="81.71" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="200.82" y="83.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">15</text><circle cx="190.30" cy="93.71" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="190.30" y="95.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">5</text><circle cx="79.80" cy="208.57" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="79.80" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">15</text><circle cx="90.69" cy="196.57" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="90.69" y="198.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">5</text><circle cx="200.41" cy="208.57" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="200.41" y="210.39" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">20</text><circle cx="189.89" cy="195.68" r="4.8" fill="#050215" stroke="#FFFFFF" stroke-width="0.6"/><text x="189.89" y="197.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.2" fill="#FFFFFF">3</text><circle cx="103.23" cy="145.14" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="103.23" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#050215">22</text><circle cx="140.00" cy="104.43" r="4.4" fill="#7FBA6A" stroke="#7FBA6A" stroke-width="0.6"/><text x="140.00" y="106.18" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#050215">7</text><circle cx="140.00" cy="56.43" r="5.5" fill="#4A6FE3" stroke="#FFF8DB" stroke-width="0.6"/><text x="140.00" y="58.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#FFFFFF">17</text><circle cx="140.00" cy="73.14" r="5.5" fill="#5BC0DE" stroke="#FFF8DB" stroke-width="0.6"/><text x="140.00" y="75.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#050215">14</text><circle cx="139.46" cy="216.71" r="5.5" fill="#F0A04B" stroke="#FFF8DB" stroke-width="0.6"/><text x="139.46" y="218.81" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#050215">21</text><circle cx="139.59" cy="233.43" r="5.5" fill="#FFF8DB" stroke="#FFF8DB" stroke-width="0.6"/><text x="139.59" y="235.53" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#050215">4</text><circle cx="70.23" cy="145.14" r="5.5" fill="#0E0828" stroke="#FFF8DB" stroke-width="0.6"/><text x="70.23" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#FFFFFF">11</text><circle cx="54.27" cy="145.14" r="5.5" fill="#0E0828" stroke="#FFF8DB" stroke-width="0.6"/><text x="54.27" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#FFFFFF">11</text><circle cx="208.78" cy="145.14" r="5.5" fill="#0E0828" stroke="#FFF8DB" stroke-width="0.6"/><text x="208.78" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#FFFFFF">18</text><circle cx="224.74" cy="145.14" r="5.5" fill="#0E0828" stroke="#FFF8DB" stroke-width="0.6"/><text x="224.74" y="147.24" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="6" fill="#FFFFFF">7</text><circle cx="161.13" cy="143.43" r="5" fill="#FF4D7E" stroke="#FF4D7E" stroke-width="0.6"/><text x="161.13" y="145.35" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5.5" fill="#050215">13</text><circle cx="173.56" cy="145.14" r="4.4" fill="#050215" stroke="#FF7BA0" stroke-width="0.6"/><text x="173.56" y="146.89" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="5" fill="#FFFFFF">6</text><circle cx="34.42" cy="145.14" r="10" fill="#A78BFA" stroke="#A78BFA" stroke-width="0.6"/><text x="34.42" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#FFFFFF">18</text><text x="18.44" y="146.92" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">0y</text><circle cx="140.00" cy="35.00" r="10" fill="#A78BFA" stroke="#A78BFA" stroke-width="0.6"/><text x="140.00" y="38.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#FFFFFF">3</text><text x="140.00" y="20.00" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">20y</text><circle cx="245.00" cy="145.14" r="10" fill="#D14F3A" stroke="#D14F3A" stroke-width="0.6"/><text x="245.00" y="148.64" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#FFFFFF">7</text><text x="260.98" y="146.93" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">40y</text><circle cx="140.00" cy="254.00" r="10" fill="#D14F3A" stroke="#D14F3A" stroke-width="0.6"/><text x="140.00" y="257.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#FFFFFF">10</text><text x="140.00" y="271.00" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">60y</text><circle cx="65.21" cy="66.93" r="10" fill="#FFD93D" stroke="#FFD93D" stroke-width="0.6"/><text x="65.21" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#050215">21</text><text x="53.76" y="56.75" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">10y</text><circle cx="214.38" cy="66.93" r="10" fill="#FFD93D" stroke="#FFD93D" stroke-width="0.6"/><text x="214.38" y="70.43" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#050215">10</text><text x="225.79" y="56.72" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">30y</text><circle cx="214.38" cy="221.34" r="10" fill="#FFD93D" stroke="#FFD93D" stroke-width="0.6"/><text x="214.38" y="224.84" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#050215">17</text><text x="225.18" y="234.15" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">50y</text><circle cx="65.29" cy="221.00" r="10" fill="#FFD93D" stroke="#FFD93D" stroke-width="0.6"/><text x="65.29" y="224.50" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="10" fill="#050215">10</text><text x="54.44" y="233.76" text-anchor="middle" font-size="4" font-family="Georgia, serif" fill="#FFF8DB" font-style="italic" opacity="0.85">70y</text><circle cx="140.00" cy="140.00" r="12" fill="#F5C842" stroke="#F5C842" stroke-width="0.6"/><text x="140.00" y="144.20" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="12" fill="#050215">11</text><text x="156.99" y="192.57" font-size="8" text-anchor="middle" fill="#FF1744" filter="url(#heartGlow)">❤</text><text x="192.62" y="154.86" font-size="8" text-anchor="middle" font-weight="700" fill="#3CFF6E" filter="url(#dollarGlow)">$</text></svg>
+    <div class="year-triad-strip">  <div class="cell"><div class="label">Year Arcanum</div>    <div class="arc">10 — The Wheel of Fortune</div>    <div class="role">what is happening</div></div>  <div class="cell"><div class="label">Mirror Arcanum</div>    <div class="arc">10 — The Wheel of Fortune</div>    <div class="role">why it is happening (the cause)</div></div>  <div class="cell"><div class="label">Outcome Arcanum</div>    <div class="arc">20 — Judgement (Awakening)</div>    <div class="role">where it leads</div></div></div>
+    <div class="chart-meta"><div class="cell"><div class="label">Undercurrent</div><div class="val"><span class="arc">22 (The Fool (Jester / Freedom))</span></div></div><div class="cell"><div class="label">Decade Corner (age 30)</div><div class="val"><span class="arc">10 (The Wheel of Fortune)</span></div></div><div class="cell"><div class="label">Age 29</div><div class="val"><span class="arc">15 (The Devil (Passion))</span></div></div><div class="cell"><div class="label">Age 31</div><div class="val"><span class="arc">19 (The Sun)</span></div></div></div>
+  </div>
+
+  <div class="report-intro">This is your year ahead, Valerie. The matrix doesn&#x27;t predict events — it names the energy the year is built on. What you do with the energy is the only thing that ever was, or will be, up to you.</div>
+
+  <section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Triad of the Year</h2><div class="numbers"><span class="n">10 (The Wheel of Fortune)</span> · year arcanum (what is happening): <span class="n">10 (The Wheel of Fortune)</span> · mirror through centre (why / cause): <span class="n">10 (The Wheel of Fortune)</span> · sum (outcome / where it leads): <span class="n">20 (Judgement (Awakening))</span></div><div class="body"><div class="sub"><div class="sublabel">Arcanum 1</div><p>Okay, Valerie — the year ahead at age 30 is governed by the 10 (The Wheel of Fortune), which means you are entering the year of sudden movement, karmic timing, and unconventional luck. This is not a year where you push a boulder uphill. This is the year where circumstances align in strange, synchronistic ways — if you are light enough to notice and quick enough to move. The Wheel is a gambler&#x27;s year: you win when you trust intuition over logic, leap when the door opens, and release the need to control outcomes. Expect cycles to turn. What felt stuck begins to roll forward. What felt safe may shift under your feet. You&#x27;ll find yourself in the right place at the right time more than once — but only if you&#x27;re willing to detach from the script you wrote last year. This is a wild ride of a year, and the lesson is not to white-knuckle the handlebars. In work, expect unexpected offers, lateral moves that turn golden, or partnerships that materialise out of nowhere. In love, timing is everything — the Wheel either delivers what you&#x27;ve been calling in or spins out what no longer fits. In health, lightness is medicine. Move your body. Laugh more. The energy of this year thrives on flow, not force.</p></div><div class="sub"><div class="sublabel">Arcanum 2</div><p>The cause sits on the opposite side of your chart — the 10 (The Wheel of Fortune) at age 70. This is rare: the same arcanum mirrors itself forty years forward and back, which means the question this year is asking is the question your future self will answer. The pattern here is one of faith versus fatalism. At some level, Valerie, you have absorbed the belief that life happens *to* you rather than *with* you — not consciously, perhaps, but deep in the wiring. The mirror at 70 shows a woman who has learned to trust the cycles and read the rhythm of her own fortune, who knows when to act and when to wait without anxiety. But right now, that wisdom is what you&#x27;re being taught. The cause is this: you have lived too long gripping the wheel, trying to steer by sheer willpower, forgetting that your real gift is sensing the current and riding it. This year is showing up because the universe is trying to teach you surrender — not passivity, but the kind of trust that lets you move fast when the moment arrives. You are being asked to stop fighting the timing and start working with it.</p></div><div class="sub"><div class="sublabel">Arcanum 3</div><p>The third arcanum is the sum: 20 (Judgement (Awakening)) — the outcome the year is moving toward. This is the arcanum of reckoning, lineage, and awakening to your calling. What the Wheel delivers you into is not another cycle of the same — it&#x27;s a threshold. By the end of this year, something ancestral shifts. You will see yourself differently. You will understand what you were put here to do, and why now is the moment to step into it. The 20 is the sound of your name being called — not by chance, but by your lineage, your gifts, your deep work. This year clears the fog. It brings the right people, the right timing, and the right wake-up call to move you out of waiting and into action. What you thought was random luck will reveal itself as setup. What felt like a gamble will show its inevitability. Walk the year lightly, say yes to what opens, release what closes — and by your next birthday, you will look back and see that this was the year the ground shifted under your feet on purpose. The outcome is clarity. The outcome is your calling, spoken aloud.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Undercurrent</h2><div class="numbers"><span class="n">22 (The Fool (Jester / Freedom))</span></div><div class="body"><p>Underneath the Wheel, there&#x27;s a second pull — the 22 (The Fool). This is the energy of total freedom, spontaneous leaps, beginner&#x27;s luck, and zero consequences. Where the Wheel asks you to read the moment and trust your intuition about timing, the Fool says forget the map entirely — just jump.</p><p>You&#x27;ll feel this most sharply when the Wheel&#x27;s cyclical wisdom tells you to wait, but something restless inside you whispers *now*. That&#x27;s the Fool — contagious, electric, impatient. It brings sudden ideas that feel too good to ignore, last-minute trips, creative sparks that demand immediate execution, and conversations that rewrite the plan midstream. The two energies compound when you&#x27;re meant to pivot fast — the Wheel spots the opening, the Fool gives you permission to leap without a net. They clash when the Wheel says &quot;not yet&quot; and the Fool says &quot;why not?&quot; The risk: acting on impulse when the timing isn&#x27;t ripe. The gift: trusting the irrational hunch that turns out to be genius.</p><p>Day-to-day, the Wheel dominates — you&#x27;ll feel its cyclical rhythm, the sense that doors are opening and closing on schedule. But when the Fool surfaces, it comes fast and loud — sudden inspiration, a reckless yes, the urge to blow up the careful plan and start fresh. Recognise it by the adrenaline and the grin. Let it move you when the Wheel confirms the moment is hot. Rein it in when you&#x27;re being swept by novelty alone.</p></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Year Through Three Lenses</h2><div class="numbers"><span class="n">10 (The Wheel of Fortune)</span> · year arcanum: <span class="n">10 (The Wheel of Fortune)</span> · love line: <span class="n">j=21, k=6, l=12</span> · money channel: <span class="n">c=7</span> · money line: <span class="n">l=12, m=3, n=18</span></div><div class="body"><div class="sub"><div class="sublabel">Health &amp; Body</div><p>The Wheel of Fortune year lands in the body as cycles — energy peaks and troughs that refuse to follow a predictable schedule. Valerie, you&#x27;ll notice your stamina swings more dramatically than usual: two weeks of unstoppable momentum, then a weekend where getting off the couch feels Herculean. This is the arcanum&#x27;s signature — motion, rest, motion, rest. The organs that take the hit when the Wheel spins too fast are the liver and the digestive system; stress manifests as bloating, sluggish digestion, or blood-sugar crashes when you&#x27;re running on fumes and forgetting to eat. The year asks you to get serious about meal timing and gut health — probiotics, digestive enzymes, the unsexy basics. If you&#x27;ve been ignoring chronic fatigue or hormonal wobbles, this is the year they demand attention; book the blood panel in spring, don&#x27;t wait for the body to scream. The upside: intuitive movement works beautifully under this arcanum. Dance, yoga, anything that lets you follow the body&#x27;s rhythm rather than forcing a rigid gym schedule. The Wheel rewards listening to the cycle, punishing the grind. And because your centre is Strength (11) — calm power, taming the beast within — your physical baseline is resilient. You can handle the swings if you stop treating rest as weakness. Sleep when the Wheel says sleep. The body is the vehicle; this year teaches you to drive it according to its own map, not the one you inherited from hustle culture.</p></div><div class="sub"><div class="sublabel">Work &amp; Money</div><p>The Wheel of Fortune year in your money channel (7, the Chariot — expansion, ambition, victory) is a gift wrapped in chaos. This is the year opportunities arrive out of nowhere, often through introductions you weren&#x27;t expecting or sudden visibility you didn&#x27;t orchestrate. Your money line runs 12-3-18 (The Hanged Man, The Empress, The Moon) — unconventional paths, creative abundance, storytelling that pays — and the Wheel accelerates all three. Valerie, if you&#x27;ve been waiting for permission to pivot or launch something weird and gorgeous, this is the year the universe says *go*. The catch: the Wheel doesn&#x27;t reward rigid plans. It rewards agility. The clients, contracts, or collaborations that land in your lap won&#x27;t look like what you thought you wanted, and if you hesitate because they don&#x27;t match the vision board, you&#x27;ll miss the wave. Say yes to the unexpected offer. Take the meeting that feels random. The Wheel spins fastest when you lean into luck rather than trying to engineer it. The trap: gambling. The shadow of 10 is believing the hot streak will never end, overspending during the high, panicking during the low. You&#x27;ll be tempted to make a big purchase or investment around mid-year — pause, check the motive. If it&#x27;s fear of missing out or trying to lock in abundance before it leaves, walk away. If it&#x27;s genuine expansion that serves the 3 (your Empress talent — building beauty and care into everything you touch), green light. This year doesn&#x27;t promise linear growth. It promises movement. Ride it.</p></div><div class="sub"><div class="sublabel">Love &amp; Relationships</div><p>The Wheel of Fortune spinning through your love line (21-6-12) is volatile and clarifying in equal measure. Your love block sits at 21, The World — the tendency to expect completion, perfection, someone who checks every box before you let them in. This year dismantles that. The Wheel brings people into your orbit suddenly, often through travel, chance meetings, or social circles you wouldn&#x27;t have predicted. If you&#x27;re single, Valerie, expect a encounter that feels fated but doesn&#x27;t arrive in the package you were holding out for — and the test is whether you&#x27;re willing to meet someone real instead of waiting for the fantasy. Your ideal partner is the 6 (The Lovers) — magnetic chemistry, values alignment, someone who chooses you clearly — and under the Wheel, that person might show up in spring or late summer, but only if you stop scanning for red flags long enough to notice green ones. If you&#x27;re partnered, this year asks whether the relationship can handle change. The Wheel accelerates whatever is already in motion: if it&#x27;s growing, it deepens fast (engagements, moving in together, big conversations about the future); if it&#x27;s stagnant, the cracks widen. The 12 at the end of your love line (The Hanged Man) means the real intimacy comes when you surrender the need to control the outcome and let the relationship teach you a new perspective. This isn&#x27;t a year to force clarity. It&#x27;s a year to trust timing. The right person, or the next level of the right person, arrives when the Wheel says so — not a moment sooner, no matter how hard you try to push it.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>High Road vs. Shadow</h2><div class="numbers"><span class="n">10 (The Wheel of Fortune)</span> · arcanum: <span class="n">10 (The Wheel of Fortune)</span> · light: <span class="n">cycles, karmic timing, reading the moment, luck</span> · shadow: <span class="n">passive fatalism, blaming circumstance, unable to commit</span></div><div class="body"><div class="sub"><div class="sublabel">High Road</div><p>Valerie, this is the year you stop waiting for permission and start trusting your timing. The high road looks like saying yes when the invitation lands—whether it&#x27;s a job offer that arrives out of nowhere, a trip that reorganises your perspective, or a relationship that walks in on unconventional terms. You&#x27;re reading the room, reading the moment, moving with the cycle instead of against it. Two signals you&#x27;re on track: you feel lighter than you have in years, and people keep saying &quot;how did you know to do that right then?&quot; By your 31st birthday, you&#x27;ll have proof that intuition beats strategy—and a life that finally feels like it&#x27;s moving at your speed, not someone else&#x27;s prescribed timeline.</p></div><div class="sub"><div class="sublabel">Shadow Track</div><p>The shadow here is standing still while the wheel turns and then calling it bad luck. It looks like this: opportunities show up but you don&#x27;t take them because the timing feels &quot;off&quot; or because you&#x27;re waiting for a better one. You blame the economy, the market, your circumstances—anything external—while refusing to commit to the path in front of you. Another signal: chronic indecision dressed up as &quot;keeping my options open.&quot; If you end this year in the same place you started, convinced the universe just didn&#x27;t deliver, that&#x27;s the shadow talking. The wheel turned. You chose not to get on it. That&#x27;s the diagnosis, not a judgment—but it is a choice you&#x27;re making.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Year, Phase by Phase</h2><div class="numbers"><span class="n">10 (The Wheel of Fortune)</span> · Q1 (March–May): <span class="n">phase of the year arcanum</span> · Q2 (June–August): <span class="n">phase of the year arcanum</span> · Q3 (September–November): <span class="n">phase of the year arcanum</span> · Q4 (December–February): <span class="n">phase of the year arcanum</span></div><div class="body"><div class="sub"><div class="sublabel">Quarter 1</div><p>March–May — The Wheel Lands</p><p>The Wheel spins into view, Valerie, and the first thing you&#x27;ll notice is *lightness*. March through May feels like the universe loosening its grip — not because the work got easier, but because you stop trying to muscle it. Opportunities arrive sideways. You&#x27;ll be in the right conversation at the right time, overhear something that cracks open a door, or receive an offer you didn&#x27;t apply for. Don&#x27;t dismiss coincidence as luck; this quarter teaches you to *trust the moment*. Health-wise, your body wants rhythm over intensity — walk more, sleep when tired, eat what sounds good. Work and money feel less grind, more flow; if something lands in your lap, say yes before the doubt spiral starts. Love is playful, not pressured. The Wheel doesn&#x27;t ask you to chase; it asks you to *show up* and let the current do the rest. This is the doorway. Step through it light.</p></div><div class="sub"><div class="sublabel">Quarter 2</div><p>June–August — The Spin Deepens</p><p>June through August, the Wheel picks up speed. You&#x27;re no longer watching it turn; you&#x27;re *on* it. This is when the year&#x27;s central lesson surfaces: you cannot control timing, but you can read it. A project that stalled suddenly moves. A person who ghosted reappears. Money comes from an unexpected channel — possibly tied to your 3 (Empress) talent or something you nurtured months ago without seeing payoff. The test is *not forcing*. Your 11 (Strength) centre wants to grip the reins; the Wheel wants you to loosen them. Relationships deepen or clarify — the ones that belong stay; the ones that don&#x27;t start drifting without drama. Pay attention to dreams and gut hits in this window; your 18 (Moon) perceived-self is dialed in, feeding you information your logical mind will second-guess. Don&#x27;t. The Wheel rewards those who move *with* the current, not against it. This quarter is your training ground.</p></div><div class="sub"><div class="sublabel">Quarter 3</div><p>September–November — The Peak of Fate</p><p>September through November, you hit the *crest*. This is the Wheel at its most concentrated — the stretch where everything the year has been building toward either lands or lessons you hard. Expect at least one big external shift: a career pivot, a move, a relationship reaching its make-or-break point, or a financial decision you&#x27;ve been circling for months. The Wheel doesn&#x27;t negotiate; it *delivers*. Your job is to say yes to what is already in motion and stop clinging to what is clearly leaving. Health may flag if you resist — your body will mirror the resistance as exhaustion or low-grade illness. This is not punishment; it&#x27;s feedback. Work and money peak if you&#x27;ve been riding the flow; if you&#x27;ve been fighting it, this quarter will show you where you miscalculated. Love either deepens into real commitment or reveals itself as a placeholder. The 12 (Hanged Man) in your love line asks for *surrender*, not strategy. Let the Wheel turn. This is the hardest stretch and the most fertile.</p></div><div class="sub"><div class="sublabel">Quarter 4</div><p>December–February — The Harvest and the Handoff</p><p>December through February, the Wheel begins its descent — not collapse, but *completion*. You&#x27;re integrating what the year taught you, and it shows in how you move. You&#x27;re less reactive, more certain. The decisions you made in Q3 start bearing fruit, or the lessons start landing as clarity. Money stabilizes; work finds its new rhythm. If you&#x27;ve been holding on to something past its expiration date, this quarter forces the final release — but gently, like a door closing on its own. Love either settles into something real or you stop pretending it will. Your 13 (Death) heart-desire has been whispering all year; by February, you&#x27;ll know what needs to die so the next cycle can begin. Health asks for rest and reflection — this is not the quarter to launch; it&#x27;s the quarter to *land*. As your next birthday approaches, you&#x27;ll carry forward one non-negotiable truth the Wheel drilled into you: *timing is not yours to control, but it is yours to trust*. That&#x27;s the gift. Keep it.</p></div></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>Where This Year Sits in the Decade</h2><div class="numbers"><span class="n">10 (The Wheel of Fortune)</span> · age 29: <span class="n">15 (The Devil (Passion))</span> · age 30: <span class="n">10 (The Wheel of Fortune)</span> · age 31: <span class="n">19 (The Sun)</span> · decade corner (age 30): <span class="n">10 (The Wheel of Fortune)</span> · decade midpoint: <span class="n">17 (The Star)</span></div><div class="body"><p>Last year — 29, under the 15 — you walked through a year of raw tests. Temptation, shadows you couldn&#x27;t ignore, desires named out loud. Some of what you claimed felt like power. Some of it left teeth marks. You survived it. You&#x27;re here.</p><p>Now — 30, the Wheel of Fortune. The wind changes. This is the year timing stops being your enemy and starts working for you. Karmic cycles turn in your favour. Things arrive when they&#x27;re meant to — not a minute sooner, not a minute late. Your job isn&#x27;t to push. It&#x27;s to read the moment, trust your gut, and move when the door opens. The Wheel doesn&#x27;t reward force; it rewards lightness and readiness. You&#x27;ll notice synchronicities you can&#x27;t explain, doors opening before you knock, people showing up with exactly what you needed without you asking. Body: trust what feels easy; forcing anything physical this year is a trap. Money: opportunities come through unconventional channels — side roads, not the highway. Love: timing is everything; if the fit is off by a week, it&#x27;s off. Don&#x27;t override that knowing.</p><p>Next year — 31, the Sun — you step into radiant visibility. Golden, warm, public success. That one&#x27;s waiting for you just ahead.</p><p>The decade corner is also the Wheel — same energy — which means this entire 10-year arc from 30 to 40 is teaching you to *trust the turn*. This isn&#x27;t a decade of grinding willpower. It&#x27;s a decade of rhythm, cycles, and faith in divine timing. And because this year IS the corner, this is a PIVOT year. The whole arc starts now. Everything shifts here.</p></div></section><section class="aspect"><div class="eyebrow">The Year Ahead</div><h2>The Move &amp; The Trap</h2><div class="numbers"><span class="n">10 (The Wheel of Fortune)</span> · year arcanum: <span class="n">10 (The Wheel of Fortune)</span></div><div class="body"><div class="sub"><div class="sublabel">The Move</div><p>Valerie, the action this year demands is a single, counterintuitive leap into something you have NOT earned credentials for yet. Your 10 (The Wheel) year rewards lightness and trust — not preparation. Your 12 (The Hanged Man) on the money line says the pause is over; your 3 (The Empress) underneath says you build by creating, not by waiting for permission. The Oppressed Soul karmic tail has kept you asking if you&#x27;re allowed — this year stops asking. One application, one pitch, one conversation you are not &quot;ready&quot; for. The Wheel spins for people who step onto it while it&#x27;s moving. The timing is now, not when you feel qualified. This is the year you act BEFORE the confidence arrives, and the confidence follows the action.</p></div><div class="sub"><div class="sublabel">The Trap</div><p>The trap is waiting for a sign so clear you can&#x27;t possibly misread it. Your 10 year doesn&#x27;t work that way — the Wheel rewards those who move on faint signals and gut pulls, not guarantees. If you wait until the path is lit and the outcome certain, you miss the window entirely. Your 21 (The World) love block wants completion before commitment; your 18 (The Moon) self-perception feeds the anxiety that you might choose wrong. Both will conspire to keep you analyzing instead of acting. This year punishes hesitation and rewards the leap. Trust the pull, not the proof.</p></div></div></section>
+
+  <footer class="outro">
+    The triad names the year. Walk it on the high road and the third arcanum is what you carry into the next birthday.
+  </footer>
+</div>
+</body>
+</html>
